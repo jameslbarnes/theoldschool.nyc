@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The School · Stewardship Survey</title>
+  <meta name="description" content="The School is selecting its first 100 founding stewards. Collaborators who shape this community through some mix of dues and labor. No passengers on this spaceship, only crew.">
+
+  <script>
+    window.SCHOOL_SURVEY_ENDPOINT = "https://www.sayinterviews.com/api/school-survey";
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #000000;
+      --card: #f4f3ef;
+      --card-2: #ebeae5;
+      --ink: #0d0d0d;
+      --ink-soft: #4a4a47;
+      --muted: #7a7873;
+      --line: rgba(13, 13, 13, 0.08);
+      --line-strong: rgba(13, 13, 13, 0.18);
+      --green: #00ff66;
+      --green-deep: #00cc52;
+      --radius: 22px;
+      --radius-sm: 14px;
+      --max: 1280px;
+      --sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --shadow:
+        0 1px 0 rgba(255, 255, 255, 0.04) inset,
+        0 12px 32px rgba(0, 0, 0, 0.45),
+        0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding: 20px;
+    }
+
+    .wrap { max-width: var(--max); margin: 0 auto; }
+
+    /* === GRID === */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      color: var(--ink);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card.dark {
+      background: #0e0e0e;
+      color: #f4f3ef;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* === SPANS === */
+    .span-4 { grid-column: span 4; }
+    .span-3 { grid-column: span 3; }
+    .span-2 { grid-column: span 2; }
+    .span-1 { grid-column: span 1; }
+
+    /* === EYEBROW === */
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .eyebrow .arrow {
+      display: inline-grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      color: var(--ink);
+      opacity: 0.7;
+    }
+
+    /* === HERO === */
+    .hero {
+      min-height: 460px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 36px 36px 32px;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1.5px solid var(--ink);
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+
+    .hero-meta {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      text-align: right;
+      line-height: 1.5;
+    }
+    .hero-meta strong {
+      display: block;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .hero-headline {
+      align-self: end;
+      margin: 0;
+      font-family: var(--sans);
+      font-weight: 800;
+      font-size: clamp(48px, 7.5vw, 96px);
+      line-height: 0.95;
+      letter-spacing: -0.035em;
+      color: var(--ink);
+    }
+    .hero-headline small {
+      display: block;
+      margin-top: 14px;
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: clamp(15px, 1.4vw, 19px);
+      line-height: 1.4;
+      letter-spacing: 0;
+      color: var(--ink-soft);
+      max-width: 660px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-top: 14px;
+    }
+
+    .hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green-deep);
+      font-weight: 600;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 4px rgba(0, 255, 102, 0.18);
+    }
+
+    /* === SIDE TILES === */
+    .tile {
+      min-height: 220px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 12px;
+    }
+
+    .tile-icon {
+      display: grid;
+      place-items: center;
+      padding: 18px 0;
+      color: var(--ink);
+      opacity: 0.85;
+    }
+    .tile-icon svg { width: 88px; height: 88px; }
+
+    .tile-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .tile-footer strong {
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    /* === SECTION HEADER === */
+    .section-band {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 8px 4px 0;
+    }
+    .section-band h2 {
+      margin: 0;
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
+    .section-band .count {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .section-note {
+      grid-column: 1 / -1;
+      margin: -4px 4px 6px;
+      font-family: var(--sans);
+      font-style: italic;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.65);
+      max-width: 720px;
+    }
+
+    /* === INTRO CARD === */
+    .intro {
+      padding: 36px 36px;
+    }
+    .intro p {
+      margin: 0 0 14px;
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--ink);
+      max-width: 760px;
+    }
+    .intro p:last-child { margin-bottom: 0; }
+    .intro p em { font-style: italic; color: var(--ink); font-weight: 600; }
+    .intro .lead-num {
+      display: block;
+      font-family: var(--sans);
+      font-weight: 800;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin: 0 0 22px;
+      max-width: 760px;
+    }
+    .intro .lead-num span {
+      color: var(--green-deep);
+    }
+
+    /* === FORM === */
+    .q {
+      display: grid;
+      gap: 14px;
+    }
+
+    .q-label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .q-title {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      color: var(--ink);
+      margin: 0;
+    }
+    .q-help {
+      font-family: var(--sans);
+      color: var(--ink-soft);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      font: inherit;
+      font-family: var(--sans);
+      font-size: 16px;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid var(--line-strong);
+      border-radius: 10px;
+      padding: 12px 14px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 88px;
+      font-family: var(--sans);
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(0, 255, 102, 0.22);
+    }
+
+    .opts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .opt {
+      cursor: pointer;
+    }
+    .opt input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .opt span {
+      display: inline-block;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: #fff;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+      user-select: none;
+    }
+    .opt:hover span { border-color: var(--ink); }
+    .opt input:checked + span {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #f4f3ef;
+    }
+    .opt input:focus-visible + span {
+      box-shadow: 0 0 0 3px rgba(0, 255, 102, 0.4);
+    }
+
+    /* Dual-thumb price range slider */
+    .dual-slider {
+      position: relative;
+      height: 28px;
+      margin: 22px 6px 8px;
+    }
+    .dual-track {
+      position: absolute;
+      left: 0; right: 0; top: 11px;
+      height: 6px;
+      background: var(--line-strong);
+      border-radius: 999px;
+    }
+    .dual-fill {
+      position: absolute;
+      top: 0; bottom: 0;
+      background: var(--ink);
+      border-radius: 999px;
+    }
+    .dual-slider input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 28px;
+      background: transparent;
+      pointer-events: none; /* track is inert; thumb is interactive (see below) */
+      outline: none;
+      margin: 0;
+    }
+    .dual-slider input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      pointer-events: auto;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 3px solid var(--card);
+      box-shadow: 0 0 0 1px var(--ink), 0 3px 8px rgba(0,0,0,0.22);
+      cursor: grab;
+      margin-top: 0;
+    }
+    .dual-slider input[type="range"]::-moz-range-thumb {
+      pointer-events: auto;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 3px solid var(--card);
+      box-shadow: 0 0 0 1px var(--ink), 0 3px 8px rgba(0,0,0,0.22);
+      cursor: grab;
+    }
+    .dual-slider input[type="range"]:focus::-webkit-slider-thumb {
+      box-shadow: 0 0 0 1px var(--ink), 0 0 0 5px rgba(0, 255, 102, 0.32);
+    }
+    .dual-scale {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 4px;
+    }
+    .dual-readout {
+      margin: 14px 0 0;
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .dual-readout strong { color: var(--green-deep); }
+    .dual-readout .untouched { color: var(--muted); font-weight: 500; }
+
+    /* Dues / labor slider */
+    .slider-frame { padding-top: 6px; }
+    .slider-ends {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .slider-ends strong { color: var(--ink); font-weight: 700; }
+    input[type="range"].mix-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: var(--line-strong);
+      border-radius: 999px;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"].mix-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 3px solid var(--card);
+      box-shadow: 0 0 0 1px var(--ink), 0 2px 6px rgba(0,0,0,0.18);
+      cursor: grab;
+    }
+    input[type="range"].mix-slider::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 3px solid var(--card);
+      box-shadow: 0 0 0 1px var(--ink);
+      cursor: grab;
+    }
+    input[type="range"].mix-slider:focus { outline: none; }
+    input[type="range"].mix-slider:focus::-webkit-slider-thumb {
+      box-shadow: 0 0 0 1px var(--ink), 0 0 0 5px rgba(0, 255, 102, 0.32);
+    }
+    .slider-readout {
+      margin-top: 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .slider-readout strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+    .slider-readout .untouched { color: var(--muted); font-weight: 500; }
+
+    .submit-card {
+      grid-column: span 4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 30px 36px;
+      flex-wrap: wrap;
+    }
+    .submit-msg {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin: 0;
+    }
+    button[type="submit"] {
+      font: inherit;
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 16px 28px;
+      background: var(--ink);
+      color: var(--card);
+      border: 1.5px solid var(--ink);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    button[type="submit"]:hover {
+      transform: translateY(-1px);
+      background: var(--green);
+      color: var(--ink);
+      border-color: var(--green);
+      box-shadow: 0 8px 24px rgba(0, 255, 102, 0.25);
+    }
+    button[type="submit"]:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* === SUCCESS STATE === */
+    .success {
+      display: none;
+      grid-column: 1 / -1;
+      padding: 64px 36px;
+      text-align: center;
+    }
+    .success.show { display: block; }
+    .success-headline {
+      font-family: var(--sans);
+      font-weight: 800;
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin: 0 0 14px;
+    }
+    .success-headline em { font-style: italic; color: var(--green-deep); font-weight: 700; }
+    .success-sub {
+      font-family: var(--sans);
+      font-size: 18px;
+      color: var(--ink-soft);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* === FOOTER === */
+    .foot {
+      margin-top: 24px;
+      padding: 18px 12px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .foot a { color: rgba(255, 255, 255, 0.7); text-decoration: none; }
+    .foot a:hover { color: var(--green); }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .span-4, .span-3, .span-2 { grid-column: span 2; }
+      .submit-card { grid-column: span 2; }
+      .success { grid-column: span 2; }
+      .section-band { grid-column: span 2; }
+    }
+    @media (max-width: 580px) {
+      .grid { grid-template-columns: 1fr; gap: 12px; }
+      .span-4, .span-3, .span-2, .span-1 { grid-column: span 1; }
+      .submit-card, .success, .section-band { grid-column: span 1; }
+      .card { padding: 22px; }
+      .hero, .intro { padding: 28px 24px; }
+      .submit-card { flex-direction: column; align-items: stretch; }
+      .submit-card button { width: 100%; }
+      .range-row { grid-template-columns: 1fr; }
+      .range-row .dash { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <form id="school-form" class="grid" autocomplete="off" novalidate>
+
+      <!-- HERO -->
+      <section class="card hero span-3">
+        <div class="hero-top">
+          <div class="mark">C</div>
+          <div class="hero-meta">
+            <strong id="hero-date"></strong>
+            <span id="hero-time"></span>
+          </div>
+        </div>
+        <h1 class="hero-headline">
+          THE SCHOOL
+          <small>Stewardship survey.</small>
+        </h1>
+        <div>
+          <div class="hero-tags">
+            <span>ART</span><span>TECHNOLOGY</span><span>RESEARCH</span><span>CULTURE</span>
+          </div>
+          <div class="hero-tags" style="margin-top: 4px;">
+            <span>GREENPOINT, NYC</span>
+          </div>
+          <div class="hero-status"><span class="dot"></span><span>SURVEY OPEN</span></div>
+        </div>
+      </section>
+
+      <!-- INFO TILE: WHAT -->
+      <aside class="card tile">
+        <div class="eyebrow"><span>WHAT</span><span class="arrow">↗</span></div>
+        <div class="tile-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 10 H42 L50 18 V54 H14 Z"/>
+            <path d="M42 10 V18 H50"/>
+            <line x1="22" y1="28" x2="42" y2="28"/>
+            <line x1="22" y1="36" x2="42" y2="36"/>
+            <line x1="22" y1="44" x2="34" y2="44"/>
+          </svg>
+        </div>
+        <div class="tile-footer">
+          <strong>An old school</strong>
+          <span>for new ideas</span>
+        </div>
+      </aside>
+
+      <!-- INTRO -->
+      <section class="card intro span-4">
+        <span class="lead-num">We are selecting <span>100 founding stewards</span>.</span>
+        <p>The School is a 20,000-square-foot building in Greenpoint, Brooklyn. A nonprofit residency, workspace, and events institution at the intersection of art and frontier technology. One of its founders calls it &ldquo;an old school for new ideas.&rdquo; Artists, technologists, and researchers work side by side here on projects that wouldn't have a natural home anywhere else.</p>
+        <p>We're selecting our first 100 founding stewards: collaborators who shape the community through some mix of dues and labor. Workshops you'd lead, projects you'd run, taste you'd bring, time you'd give.</p>
+        <p>Stewardship can be <em>money</em>, <em>skills</em>, or any blend in between. To paraphrase Marshall McLuhan: <em>there are no passengers on this spaceship. Only crew.</em></p>
+      </section>
+
+      <!-- ======================== SECTION: WHO YOU ARE ======================== -->
+      <div class="section-band">
+        <h2>Who you are</h2>
+        <span class="count">01 / 04</span>
+      </div>
+
+      <div class="card span-2">
+        <div class="q">
+          <span class="q-label">01 / Name</span>
+          <input type="text" name="name" required>
+        </div>
+      </div>
+
+      <div class="card span-2">
+        <div class="q">
+          <span class="q-label">02 / Email</span>
+          <input type="email" name="email" required>
+        </div>
+      </div>
+
+      <div class="card span-4">
+        <div class="q">
+          <span class="q-label">03 / Phone <span style="color: var(--muted); font-weight: 400; letter-spacing: 0;">(optional)</span></span>
+          <input type="tel" name="phone" placeholder="+1 555 555 5555" autocomplete="tel">
+        </div>
+      </div>
+
+      <div class="card span-4">
+        <div class="q">
+          <span class="q-label">04 / One line on what you do</span>
+          <p class="q-help">Job, practice, project. Whatever you'd say at the door.</p>
+          <input type="text" name="what_you_do" placeholder="Painter / Founder of X / Researcher at Y / …">
+        </div>
+      </div>
+
+      <!-- ======================== SECTION: WHAT BRINGS YOU HERE ======================== -->
+      <div class="section-band">
+        <h2>What brings you here</h2>
+        <span class="count">05 / 06</span>
+      </div>
+
+      <div class="card span-4">
+        <div class="q">
+          <span class="q-label">05 / What would you use The School for?</span>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" name="uses" value="Art"><span>Art</span></label>
+            <label class="opt"><input type="checkbox" name="uses" value="Workspace"><span>Workspace</span></label>
+            <label class="opt"><input type="checkbox" name="uses" value="Events"><span>Events</span></label>
+            <label class="opt"><input type="checkbox" name="uses" value="Studio time"><span>Studio time</span></label>
+            <label class="opt"><input type="checkbox" name="uses" value="Sound beds"><span>Sound beds</span></label>
+            <label class="opt"><input type="checkbox" name="uses" value="Community"><span>Community</span></label>
+            <label class="opt"><input type="checkbox" name="uses" value="Classes"><span>Classes</span></label>
+            <label class="opt"><input type="checkbox" name="uses" value="Just curious"><span>Just curious</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card span-4">
+        <div class="q">
+          <span class="q-label">06 / What inspires you about becoming a steward of The School?</span>
+          <textarea name="inspires" rows="4"></textarea>
+        </div>
+      </div>
+
+      <!-- ======================== SECTION: RHYTHM ======================== -->
+      <div class="section-band">
+        <h2>Rhythm</h2>
+        <span class="count">07 / 09</span>
+      </div>
+
+      <div class="card span-2">
+        <div class="q">
+          <span class="q-label">07 / How often would you come?</span>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="frequency" value="Occasional"><span>Occasional</span></label>
+            <label class="opt"><input type="radio" name="frequency" value="Weekly"><span>Weekly</span></label>
+            <label class="opt"><input type="radio" name="frequency" value="3+ days a week"><span>3+ days/wk</span></label>
+            <label class="opt"><input type="radio" name="frequency" value="Live there"><span>Live there</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card span-2">
+        <div class="q">
+          <span class="q-label">08 / When?</span>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" name="when" value="Weekdays"><span>Weekdays</span></label>
+            <label class="opt"><input type="checkbox" name="when" value="Evenings"><span>Evenings</span></label>
+            <label class="opt"><input type="checkbox" name="when" value="Weekends"><span>Weekends</span></label>
+            <label class="opt"><input type="checkbox" name="when" value="Overnight"><span>Overnight</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card span-4">
+        <div class="q">
+          <span class="q-label">09 / What kind of space?</span>
+          <p class="q-help">Pick the one that fits how you'd actually use it. We won't know what the right mix is until we see how people answer.</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="space_type" value="Hot desk"><span>Hot desk</span></label>
+            <label class="opt"><input type="radio" name="space_type" value="Dedicated desk"><span>Dedicated desk</span></label>
+            <label class="opt"><input type="radio" name="space_type" value="Small office or studio"><span>Small office or studio</span></label>
+            <label class="opt"><input type="radio" name="space_type" value="Large office or studio"><span>Large office or studio</span></label>
+            <label class="opt"><input type="radio" name="space_type" value="Other" id="space-type-other-radio"><span>Other</span></label>
+          </div>
+          <input type="text" name="space_type_other" id="space-type-other-input" placeholder="Describe the setup that would work for you…" style="display:none; margin-top:12px;">
+        </div>
+      </div>
+
+      <!-- ======================== SECTION: MONEY ======================== -->
+      <div class="section-band">
+        <h2>Stewardship mix</h2>
+        <span class="count">10 / 11</span>
+      </div>
+      <p class="section-note">For information gathering. Your answers here don't commit you to anything.</p>
+
+      <div class="card span-4">
+        <div class="q">
+          <span class="q-label">10 / How would you want to split your contribution?</span>
+          <p class="q-help">Stewardship is dues, labor, or any blend. Slide to where you'd want to land: all dues, all labor, or anywhere in between. Labor means workshops, programming, projects, expertise, time. You can absolutely become a steward through skills alone.</p>
+          <div class="slider-frame">
+            <div class="slider-ends">
+              <span>DUES</span>
+              <span>LABOR</span>
+            </div>
+            <input type="range" class="mix-slider" id="dues-labor-slider" name="contribution_mix" min="0" max="100" step="5" value="50">
+            <p class="slider-readout" id="dues-labor-readout"><span class="untouched">Slide to indicate. Default 50/50.</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card span-4" id="dues-amount-card">
+        <div class="q">
+          <span class="q-label">11 / What range would you pay in dues per month?</span>
+          <p class="q-help">Depending on amenities. The floor you'd pay for something basic, and the ceiling you'd stretch to for a setup that's worth it.</p>
+          <div class="dual-slider">
+            <div class="dual-track">
+              <div class="dual-fill" id="dues-fill"></div>
+            </div>
+            <input type="range" id="dues-min" name="price_min" min="0" max="1000" step="25" value="100">
+            <input type="range" id="dues-max" name="price_max" min="0" max="1000" step="25" value="500">
+          </div>
+          <div class="dual-scale">
+            <span>$0</span><span>$250</span><span>$500</span><span>$750</span><span>$1,000+</span>
+          </div>
+          <p class="dual-readout" id="dues-readout"><span class="untouched">Drag the thumbs to set a range</span></p>
+        </div>
+      </div>
+
+      <!-- ======================== SECTION: WHAT YOU'D BRING ======================== -->
+      <div class="section-band">
+        <h2>What you'd bring</h2>
+        <span class="count">12 / 13</span>
+      </div>
+
+      <div class="card span-4">
+        <div class="q">
+          <span class="q-label">12 / What labor would you contribute?</span>
+          <p class="q-help">Specifically: workshops you could lead, programming you'd run, expertise you'd share, work you'd hang on the wall, time you'd give. The more specific, the better. This is how we read fit.</p>
+          <textarea name="contribute" rows="4" placeholder="A monthly workshop on … / I'd want to organize … / I can help with …"></textarea>
+        </div>
+      </div>
+
+      <div class="card span-4">
+        <div class="q">
+          <span class="q-label">13 / Must-haves and nice-to-haves</span>
+          <p class="q-help">Tie this to your dues range. What's the floor (what would make it worth the minimum), what's the ceiling (what would justify the maximum)?</p>
+          <textarea name="must_haves" rows="4" placeholder="At $X/mo I need …  ·  At $Y/mo I'd want …"></textarea>
+        </div>
+      </div>
+
+      <!-- ======================== SECTION: ONE MORE ======================== -->
+      <div class="section-band">
+        <h2>One more</h2>
+        <span class="count">14</span>
+      </div>
+
+      <div class="card span-4">
+        <div class="q">
+          <span class="q-label">14 / Informational session</span>
+          <p class="q-help">We're hosting one the last week of May for founding stewards. The exact date is being finalized. Mark interest now and we'll send details when we have them.</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="info_session" value="Yes, interested"><span>Yes, interested</span></label>
+            <label class="opt"><input type="radio" name="info_session" value="Maybe"><span>Maybe</span></label>
+            <label class="opt"><input type="radio" name="info_session" value="Not this time"><span>Not this time</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================== SECTION: OPEN ======================== -->
+      <div class="section-band">
+        <h2>Anything else</h2>
+        <span class="count">15</span>
+      </div>
+
+      <div class="card span-4">
+        <div class="q">
+          <span class="q-label">15 / Anything else you want us to know?</span>
+          <textarea name="anything_else" rows="4"></textarea>
+        </div>
+      </div>
+
+      <!-- ======================== SECTION: THE CONVENT ======================== -->
+      <div class="section-band">
+        <h2>The Convent</h2>
+        <span class="count">16</span>
+      </div>
+
+      <div class="card span-4">
+        <div class="q">
+          <span class="q-label">16 / Would you be interested in a Convent residency?</span>
+          <p class="q-help">The Convent is The School's selective artist and technologist residency program, located in the 8,000-square-foot former convent next door. Includes living space on site. By application only, separate from stewardship at The School.</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="residency_interest" value="Yes, tell me more"><span>Yes, tell me more</span></label>
+            <label class="opt"><input type="radio" name="residency_interest" value="Not for me"><span>Not for me</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Honeypot (off-screen) -->
+      <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+        <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <!-- SUBMIT -->
+      <section class="card submit-card">
+        <p class="submit-msg" id="submit-msg">Stewardship is not consumption.</p>
+        <button type="submit" id="submit-btn">Submit response →</button>
+      </section>
+
+      <!-- SUCCESS STATE -->
+      <section class="card success" id="success-card">
+        <h2 class="success-headline">Response <em>received.</em></h2>
+        <p class="success-sub">Thank you. We read every one of these. We'll be in touch at the email you left once we've gone through the responses, and ahead of the May informational session if you said yes.</p>
+      </section>
+    </form>
+
+    <footer class="foot">
+      <span>© The School · 2026</span>
+      <span><a href="mailto:james@sayinterviews.com">INFO@</a></span>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const endpoint = window.SCHOOL_SURVEY_ENDPOINT;
+      const form = document.getElementById('school-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const submitMsg = document.getElementById('submit-msg');
+      const successCard = document.getElementById('success-card');
+
+      const dateEl = document.getElementById('hero-date');
+      const timeEl = document.getElementById('hero-time');
+      const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+      const pad = n => String(n).padStart(2, '0');
+      function tick() {
+        const d = new Date();
+        dateEl.textContent = pad(d.getDate()) + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+        timeEl.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+      }
+      tick(); setInterval(tick, 1000);
+
+      // "Other" space type, reveal a freeform text input when picked.
+      const otherInput = document.getElementById('space-type-other-input');
+      document.querySelectorAll('input[name="space_type"]').forEach(r => {
+        r.addEventListener('change', () => {
+          const isOther = document.getElementById('space-type-other-radio').checked;
+          otherInput.style.display = isOther ? 'block' : 'none';
+          if (isOther) otherInput.focus();
+          else otherInput.value = '';
+        });
+      });
+
+      // Dual-thumb dues range slider.
+      const duesMin = document.getElementById('dues-min');
+      const duesMax = document.getElementById('dues-max');
+      const duesFill = document.getElementById('dues-fill');
+      const duesReadout = document.getElementById('dues-readout');
+      const DUES_MAX_VALUE = 1000;
+      let duesTouched = false;
+      function fmtDollars(n) {
+        if (n >= 1000) return '$' + (n / 1000).toFixed(n % 1000 === 0 ? 0 : 1) + 'k';
+        return '$' + n;
+      }
+      function renderDues() {
+        let lo = parseInt(duesMin.value, 10);
+        let hi = parseInt(duesMax.value, 10);
+        if (lo > hi) {
+          // Swap when the user drags one thumb past the other.
+          if (document.activeElement === duesMin) duesMin.value = hi;
+          else duesMax.value = lo;
+          lo = parseInt(duesMin.value, 10);
+          hi = parseInt(duesMax.value, 10);
+        }
+        duesFill.style.left = (lo / DUES_MAX_VALUE * 100) + '%';
+        duesFill.style.width = ((hi - lo) / DUES_MAX_VALUE * 100) + '%';
+        let label;
+        if (lo === 0 && hi === 0) label = '<strong>Labor only</strong>, no dues';
+        else if (lo === hi)       label = '<strong>' + fmtDollars(lo) + '/mo</strong> exactly';
+        else                      label = '<strong>' + fmtDollars(lo) + ' to ' + fmtDollars(hi) + '</strong> / month';
+        duesReadout.innerHTML = duesTouched
+          ? label
+          : '<span class="untouched">Drag the thumbs to set a range</span>';
+      }
+      function onDuesInput() { duesTouched = true; renderDues(); }
+      duesMin.addEventListener('input', onDuesInput);
+      duesMax.addEventListener('input', onDuesInput);
+      renderDues();
+
+      // Dues-vs-labor slider live readout + conditional dues-amount card.
+      const slider = document.getElementById('dues-labor-slider');
+      const readout = document.getElementById('dues-labor-readout');
+      const duesCard = document.getElementById('dues-amount-card');
+      let sliderTouched = false;
+      function renderMix() {
+        const labor = Math.round(Number(slider.value));
+        const dues = 100 - labor;
+        let label;
+        if (labor === 0)        label = '<strong>100% dues</strong> · 0% labor (membership through money)';
+        else if (labor === 100) label = '0% dues · <strong>100% labor</strong> (stewardship through skills alone)';
+        else if (labor === dues)label = '<strong>50% dues · 50% labor</strong> (even split)';
+        else                    label = dues + '% dues · ' + labor + '% labor';
+        readout.innerHTML = label;
+        // Hide the dues-amount card when there are no dues to give (100% labor).
+        duesCard.style.display = (labor === 100) ? 'none' : '';
+      }
+      slider.addEventListener('input', () => { sliderTouched = true; renderMix(); });
+      slider.addEventListener('change', () => { sliderTouched = true; renderMix(); });
+
+      function collect() {
+        const fd = new FormData(form);
+        const out = {};
+        for (const key of new Set(Array.from(fd.keys()))) {
+          const values = fd.getAll(key);
+          out[key] = values.length > 1 ? values : values[0];
+        }
+        ['uses', 'when'].forEach(k => {
+          if (out[k] === undefined) out[k] = [];
+          else if (!Array.isArray(out[k])) out[k] = [out[k]];
+        });
+        // If the slider was never touched, send empty so we know they
+        // didn't actually pick a mix (vs. picking 50/50 intentionally).
+        if (!sliderTouched) out.contribution_mix = '';
+        // Same for the dues slider. Empty means "did not engage."
+        if (!duesTouched) { out.price_min = ''; out.price_max = ''; }
+        return out;
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        const originalLabel = submitBtn.textContent;
+        submitBtn.textContent = 'Sending…';
+        submitMsg.textContent = '';
+
+        try {
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(collect()),
+          });
+          if (!res.ok) {
+            const data = await res.json().catch(() => ({}));
+            throw new Error(data.error || ('HTTP ' + res.status));
+          }
+          form.querySelectorAll('.section-band, .card:not(.success)').forEach(el => {
+            el.style.display = 'none';
+          });
+          successCard.classList.add('show');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (err) {
+          console.error('[school-survey] submit failed', err);
+          submitMsg.textContent = 'Something broke. ' + (err.message || 'try again in a moment.');
+          submitMsg.style.color = '#cc3322';
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
