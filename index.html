@@ -825,16 +825,16 @@
         </div>
         <div class="q" style="margin-top: 22px;">
           <span class="q-label">09c / What range would you pay for the office or studio per month?</span>
-          <p class="q-help">Separate from any general dues. Drag both thumbs to $0 if you'd only take it through labor.</p>
+          <p class="q-help">Rooms today range from about $3.8k to $17.25k/mo. We're flexible. Tell us what you'd actually pay, or drag both thumbs to $0 if you'd only take it through labor.</p>
           <div class="dual-slider">
             <div class="dual-track">
               <div class="dual-fill" id="office-fill"></div>
             </div>
-            <input type="range" id="office-min" name="office_price_min" min="0" max="5000" step="100" value="500">
-            <input type="range" id="office-max" name="office_price_max" min="0" max="5000" step="100" value="2000">
+            <input type="range" id="office-min" name="office_price_min" min="0" max="20000" step="250" value="3000">
+            <input type="range" id="office-max" name="office_price_max" min="0" max="20000" step="250" value="8000">
           </div>
           <div class="dual-scale">
-            <span>$0</span><span>$1k</span><span>$2.5k</span><span>$3.5k</span><span>$5k+</span>
+            <span>$0</span><span>$5k</span><span>$10k</span><span>$15k</span><span>$20k+</span>
           </div>
           <p class="dual-readout" id="office-readout"><span class="untouched">Drag the thumbs to set a range</span></p>
         </div>
@@ -1051,12 +1051,12 @@
       renderDues();
 
       // Office-price dual-thumb slider (only relevant when an office is selected,
-      // but always wired up — the card visibility is handled separately).
+      // but always wired up. The card visibility is handled separately.
       const officeMin = document.getElementById('office-min');
       const officeMax = document.getElementById('office-max');
       const officeFill = document.getElementById('office-fill');
       const officeReadout = document.getElementById('office-readout');
-      const OFFICE_MAX_VALUE = 5000;
+      const OFFICE_MAX_VALUE = 20000;
       let officeTouched = false;
       function renderOffice() {
         let lo = parseInt(officeMin.value, 10);
