@@ -402,6 +402,44 @@
       box-shadow: 0 0 0 3px rgba(0, 255, 102, 0.4);
     }
 
+    /* Inline rate card (Q9c) */
+    .rate-card {
+      width: 100%;
+      margin: 14px 0 4px;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink);
+    }
+    .rate-card th {
+      text-align: left;
+      font-weight: 500;
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 8px 12px 8px 0;
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .rate-card th.r, .rate-card td.r { text-align: right; }
+    .rate-card td {
+      padding: 7px 12px 7px 0;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .rate-card tr.rate-group td {
+      padding: 14px 0 7px;
+      border-bottom: 1px solid var(--line-strong);
+      font-family: var(--sans);
+      font-style: italic;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--ink);
+    }
+    .rate-card tbody tr:last-child td { border-bottom: 0; }
+
     /* Dual-thumb price range slider */
     .dual-slider {
       position: relative;
@@ -832,19 +870,37 @@
           </div>
         </div>
         <div class="q" style="margin-top: 22px;">
-          <span class="q-label">09c / What's your budget for the office or studio per month?</span>
-          <p class="q-help">Our published rates run $3,800/mo for the smallest classroom to $17,250/mo for the largest, with two ground-floor studios at $14,950/mo. <a href="rate-card.pdf" target="_blank">See the full rate card</a>. Set the slider to your budget range.</p>
-          <div class="dual-slider">
-            <div class="dual-track">
-              <div class="dual-fill" id="office-fill"></div>
-            </div>
-            <input type="range" id="office-min" name="office_price_min" min="0" max="20000" step="250" value="3000">
-            <input type="range" id="office-max" name="office_price_max" min="0" max="20000" step="250" value="8000">
+          <span class="q-label">09c / Which room fits?</span>
+          <p class="q-help">All rooms below are offered on monthly tenancy. <a href="rate-card.pdf" target="_blank">Full rate card</a>.</p>
+
+          <table class="rate-card">
+            <thead>
+              <tr><th></th><th>Dim</th><th>Area</th><th class="r">Rate</th></tr>
+            </thead>
+            <tbody>
+              <tr class="rate-group"><td colspan="4">The Studios &nbsp;&middot;&nbsp; Ground floor</td></tr>
+              <tr><td>S.01</td><td>23′ × 26′</td><td>598 sf</td><td class="r">$14,950 /mo</td></tr>
+              <tr><td>S.02</td><td>23′ × 26′</td><td>598 sf</td><td class="r">$14,950 /mo</td></tr>
+              <tr class="rate-group"><td colspan="4">The Classrooms &nbsp;&middot;&nbsp; Second floor</td></tr>
+              <tr><td>C.01</td><td>23′ × 30′</td><td>690 sf</td><td class="r">$17,250 /mo</td></tr>
+              <tr><td>C.02</td><td>31′ × 20′</td><td>620 sf</td><td class="r">$15,500 /mo</td></tr>
+              <tr><td>C.03</td><td>31′ × 20′</td><td>620 sf</td><td class="r">$15,500 /mo</td></tr>
+              <tr><td>C.04</td><td>31′ × 20′</td><td>620 sf</td><td class="r">$15,500 /mo</td></tr>
+              <tr><td>C.05</td><td>15′ × 20′</td><td>300 sf</td><td class="r">$7,500 /mo</td></tr>
+              <tr><td>C.06</td><td>19′ × 13′</td><td>247 sf</td><td class="r">$6,175 /mo</td></tr>
+              <tr><td>C.07</td><td>10′ × 20′</td><td>200 sf</td><td class="r">$5,000 /mo</td></tr>
+              <tr><td>C.08</td><td>19′ × 9′</td><td>171 sf</td><td class="r">$4,275 /mo</td></tr>
+              <tr><td>C.09</td><td>19′ × 8′</td><td>152 sf</td><td class="r">$3,800 /mo</td></tr>
+            </tbody>
+          </table>
+
+          <div class="opts" style="margin-top: 14px;">
+            <label class="opt"><input type="radio" name="room_interest" value="Studio (~600 sf, $14,950/mo)"><span>Studio · ~600 sf · $14,950</span></label>
+            <label class="opt"><input type="radio" name="room_interest" value="Large classroom (620–690 sf, $15.5k–$17.25k/mo)"><span>Large classroom · 620–690 sf · $15.5k–$17.25k</span></label>
+            <label class="opt"><input type="radio" name="room_interest" value="Mid classroom (200–300 sf, $5k–$7.5k/mo)"><span>Mid classroom · 200–300 sf · $5k–$7.5k</span></label>
+            <label class="opt"><input type="radio" name="room_interest" value="Small classroom (150–170 sf, $3.8k–$4.3k/mo)"><span>Small classroom · 150–170 sf · $3.8k–$4.3k</span></label>
+            <label class="opt"><input type="radio" name="room_interest" value="Not sure yet, would tour first"><span>Not sure yet · would tour first</span></label>
           </div>
-          <div class="dual-scale">
-            <span>$0</span><span>$5k</span><span>$10k</span><span>$15k</span><span>$20k+</span>
-          </div>
-          <p class="dual-readout" id="office-readout"><span class="untouched">Drag the thumbs to set a range</span></p>
         </div>
       </div>
 
@@ -1058,37 +1114,6 @@
       duesMax.addEventListener('input', onDuesInput);
       renderDues();
 
-      // Office-price dual-thumb slider (only relevant when an office is selected,
-      // but always wired up. The card visibility is handled separately.
-      const officeMin = document.getElementById('office-min');
-      const officeMax = document.getElementById('office-max');
-      const officeFill = document.getElementById('office-fill');
-      const officeReadout = document.getElementById('office-readout');
-      const OFFICE_MAX_VALUE = 20000;
-      let officeTouched = false;
-      function renderOffice() {
-        let lo = parseInt(officeMin.value, 10);
-        let hi = parseInt(officeMax.value, 10);
-        if (lo > hi) {
-          if (document.activeElement === officeMin) officeMin.value = hi;
-          else officeMax.value = lo;
-          lo = parseInt(officeMin.value, 10);
-          hi = parseInt(officeMax.value, 10);
-        }
-        officeFill.style.left = (lo / OFFICE_MAX_VALUE * 100) + '%';
-        officeFill.style.width = ((hi - lo) / OFFICE_MAX_VALUE * 100) + '%';
-        let label;
-        if (lo === 0 && hi === 0) label = '<strong>Labor only</strong>, no office dues';
-        else if (lo === hi)       label = '<strong>' + fmtDollars(lo) + '/mo</strong> exactly';
-        else                      label = '<strong>' + fmtDollars(lo) + ' to ' + fmtDollars(hi) + '</strong> / month';
-        officeReadout.innerHTML = officeTouched
-          ? label
-          : '<span class="untouched">Drag the thumbs to set a range</span>';
-      }
-      function onOfficeInput() { officeTouched = true; renderOffice(); }
-      officeMin.addEventListener('input', onOfficeInput);
-      officeMax.addEventListener('input', onOfficeInput);
-      renderOffice();
 
       // Dues-vs-labor slider live readout + conditional dues-amount card.
       const slider = document.getElementById('dues-labor-slider');
@@ -1126,8 +1151,6 @@
         if (!sliderTouched) out.contribution_mix = '';
         // Same for the dues slider. Empty means "did not engage."
         if (!duesTouched) { out.price_min = ''; out.price_max = ''; }
-        // Office price slider too.
-        if (!officeTouched) { out.office_price_min = ''; out.office_price_max = ''; }
         return out;
       }
 
