@@ -802,6 +802,29 @@
         </div>
       </div>
 
+      <!-- Conditional: shown only when an office or studio is selected. -->
+      <div class="card span-4" id="office-followup-card" style="display:none;">
+        <div class="q">
+          <span class="q-label">09a / If office or studio, who's using it?</span>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="office_team_size" value="Just me"><span>Just me</span></label>
+            <label class="opt"><input type="radio" name="office_team_size" value="2–3 people"><span>2–3 people</span></label>
+            <label class="opt"><input type="radio" name="office_team_size" value="4+ people"><span>4+ people</span></label>
+          </div>
+        </div>
+        <div class="q" style="margin-top: 22px;">
+          <span class="q-label">09b / What would you need in it?</span>
+          <p class="q-help">Check anything that applies.</p>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" name="office_needs" value="Workstation only"><span>Workstation only</span></label>
+            <label class="opt"><input type="checkbox" name="office_needs" value="Studio equipment"><span>Studio equipment</span></label>
+            <label class="opt"><input type="checkbox" name="office_needs" value="Materials or instruments"><span>Materials or instruments</span></label>
+            <label class="opt"><input type="checkbox" name="office_needs" value="Overnight storage of valuable gear"><span>Overnight storage of valuable gear</span></label>
+            <label class="opt"><input type="checkbox" name="office_needs" value="Only if it's already furnished"><span>Only if it's already furnished</span></label>
+          </div>
+        </div>
+      </div>
+
       <!-- ======================== SECTION: MONEY ======================== -->
       <div class="section-band">
         <h2>Stewardship mix</h2>
@@ -955,14 +978,24 @@
       }
       tick(); setInterval(tick, 1000);
 
-      // "Other" space type, reveal a freeform text input when picked.
+      // Space-type conditional reveals: "Other" freeform input + office follow-ups.
       const otherInput = document.getElementById('space-type-other-input');
+      const officeFollowup = document.getElementById('office-followup-card');
+      const officeValues = new Set(['Small office or studio', 'Large office or studio']);
       document.querySelectorAll('input[name="space_type"]').forEach(r => {
         r.addEventListener('change', () => {
           const isOther = document.getElementById('space-type-other-radio').checked;
           otherInput.style.display = isOther ? 'block' : 'none';
           if (isOther) otherInput.focus();
           else otherInput.value = '';
+
+          const isOffice = officeValues.has(r.value) && r.checked;
+          officeFollowup.style.display = isOffice ? '' : 'none';
+          // Clear the office sub-fields when the user moves away from office.
+          if (!isOffice) {
+            officeFollowup.querySelectorAll('input[type="radio"], input[type="checkbox"]')
+              .forEach(el => { el.checked = false; });
+          }
         });
       });
 
@@ -1029,7 +1062,7 @@
           const values = fd.getAll(key);
           out[key] = values.length > 1 ? values : values[0];
         }
-        ['uses', 'when'].forEach(k => {
+        ['uses', 'when', 'office_needs'].forEach(k => {
           if (out[k] === undefined) out[k] = [];
           else if (!Array.isArray(out[k])) out[k] = [out[k]];
         });
