@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The School · Contributor Survey</title>
-  <meta name="description" content="The School is assembling its first 100 founding contributors. Collaborators who shape this community through some mix of dues and labor. No passengers on this spaceship, only crew.">
+  <meta name="description" content="The School is selecting 50 founding contributors at $300 a month. Hot desk access, a community of artists and technologists, and an invitation to bring your skills to the table.">
 
   <script>
     window.SCHOOL_SURVEY_ENDPOINT = "https://www.sayinterviews.com/api/school-survey";
@@ -52,7 +52,6 @@
 
     .wrap { max-width: var(--max); margin: 0 auto; }
 
-    /* === GRID === */
     .grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -69,19 +68,11 @@
       overflow: hidden;
     }
 
-    .card.dark {
-      background: #0e0e0e;
-      color: #f4f3ef;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    /* === SPANS === */
     .span-4 { grid-column: span 4; }
     .span-3 { grid-column: span 3; }
     .span-2 { grid-column: span 2; }
     .span-1 { grid-column: span 1; }
 
-    /* === EYEBROW === */
     .eyebrow {
       display: flex;
       align-items: center;
@@ -105,7 +96,6 @@
       opacity: 0.7;
     }
 
-    /* === HERO === */
     .hero {
       min-height: 460px;
       display: grid;
@@ -130,7 +120,6 @@
       font-family: var(--mono);
       font-weight: 700;
       font-size: 14px;
-      letter-spacing: 0;
     }
 
     .hero-meta {
@@ -204,7 +193,6 @@
       box-shadow: 0 0 0 4px rgba(0, 255, 102, 0.18);
     }
 
-    /* === SIDE TILES === */
     .tile {
       min-height: 220px;
       display: grid;
@@ -237,41 +225,6 @@
       font-size: 12px;
     }
 
-    /* === SECTION HEADER === */
-    .section-band {
-      grid-column: 1 / -1;
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 24px;
-      padding: 8px 4px 0;
-    }
-    .section-band h2 {
-      margin: 0;
-      font-family: var(--sans);
-      font-weight: 700;
-      font-size: 22px;
-      letter-spacing: -0.01em;
-      color: #fff;
-    }
-    .section-band .count {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.5);
-    }
-    .section-note {
-      grid-column: 1 / -1;
-      margin: -4px 4px 6px;
-      font-family: var(--sans);
-      font-style: italic;
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.65);
-      max-width: 720px;
-    }
-
-    /* === VIDEO CARD === */
     .video-card {
       padding: 0;
       overflow: hidden;
@@ -293,7 +246,6 @@
       background: #000;
     }
 
-    /* === INTRO CARD === */
     .intro {
       padding: 36px 36px;
     }
@@ -322,7 +274,6 @@
       color: var(--green-deep);
     }
 
-    /* === FORM === */
     .q {
       display: grid;
       gap: 14px;
@@ -336,15 +287,6 @@
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--muted);
-    }
-    .q-title {
-      font-family: var(--sans);
-      font-weight: 700;
-      font-size: 22px;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-      color: var(--ink);
-      margin: 0;
     }
     .q-help {
       font-family: var(--sans);
@@ -363,6 +305,7 @@
 
     input[type="text"],
     input[type="email"],
+    input[type="tel"],
     textarea {
       width: 100%;
       font: inherit;
@@ -382,6 +325,7 @@
     }
     input[type="text"]:focus,
     input[type="email"]:focus,
+    input[type="tel"]:focus,
     textarea:focus {
       outline: none;
       border-color: var(--ink);
@@ -424,179 +368,29 @@
       box-shadow: 0 0 0 3px rgba(0, 255, 102, 0.4);
     }
 
-    /* Inline rate card (Q9c) */
-    .rate-card {
-      width: 100%;
-      margin: 14px 0 4px;
-      border-collapse: collapse;
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--ink);
+    .section-band {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 8px 4px 0;
     }
-    .rate-card th {
-      text-align: left;
-      font-weight: 500;
-      font-size: 10.5px;
+    .section-band h2 {
+      margin: 0;
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
+    .section-band .count {
+      font-family: var(--mono);
+      font-size: 11px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--muted);
-      padding: 8px 12px 8px 0;
-      border-bottom: 1px solid var(--line-strong);
+      color: rgba(255, 255, 255, 0.5);
     }
-    .rate-card th.r, .rate-card td.r { text-align: right; }
-    .rate-card td {
-      padding: 7px 12px 7px 0;
-      border-bottom: 1px solid var(--line);
-      white-space: nowrap;
-    }
-    .rate-card tr.rate-group td {
-      padding: 14px 0 7px;
-      border-bottom: 1px solid var(--line-strong);
-      font-family: var(--sans);
-      font-style: italic;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0;
-      text-transform: none;
-      color: var(--ink);
-    }
-    .rate-card tbody tr:last-child td { border-bottom: 0; }
-
-    /* Dual-thumb price range slider */
-    .dual-slider {
-      position: relative;
-      height: 28px;
-      margin: 22px 6px 8px;
-    }
-    .dual-track {
-      position: absolute;
-      left: 0; right: 0; top: 11px;
-      height: 6px;
-      background: var(--line-strong);
-      border-radius: 999px;
-    }
-    .dual-fill {
-      position: absolute;
-      top: 0; bottom: 0;
-      background: var(--ink);
-      border-radius: 999px;
-    }
-    .dual-slider input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 28px;
-      background: transparent;
-      pointer-events: none; /* track is inert; thumb is interactive (see below) */
-      outline: none;
-      margin: 0;
-    }
-    .dual-slider input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      pointer-events: auto;
-      width: 24px; height: 24px;
-      border-radius: 50%;
-      background: var(--ink);
-      border: 3px solid var(--card);
-      box-shadow: 0 0 0 1px var(--ink), 0 3px 8px rgba(0,0,0,0.22);
-      cursor: grab;
-      margin-top: 0;
-    }
-    .dual-slider input[type="range"]::-moz-range-thumb {
-      pointer-events: auto;
-      width: 24px; height: 24px;
-      border-radius: 50%;
-      background: var(--ink);
-      border: 3px solid var(--card);
-      box-shadow: 0 0 0 1px var(--ink), 0 3px 8px rgba(0,0,0,0.22);
-      cursor: grab;
-    }
-    .dual-slider input[type="range"]:focus::-webkit-slider-thumb {
-      box-shadow: 0 0 0 1px var(--ink), 0 0 0 5px rgba(0, 255, 102, 0.32);
-    }
-    .dual-scale {
-      display: flex;
-      justify-content: space-between;
-      font-family: var(--mono);
-      font-size: 10.5px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 0 4px;
-    }
-    .dual-readout {
-      margin: 14px 0 0;
-      font-family: var(--mono);
-      font-size: 13px;
-      letter-spacing: 0.06em;
-      color: var(--ink);
-      font-weight: 600;
-    }
-    .dual-readout strong { color: var(--green-deep); }
-    .dual-readout .untouched { color: var(--muted); font-weight: 500; }
-
-    /* Dues / labor slider */
-    .slider-frame { padding-top: 6px; }
-    .slider-ends {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      font-family: var(--mono);
-      font-size: 10.5px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-    .slider-ends strong { color: var(--ink); font-weight: 700; }
-    input[type="range"].mix-slider {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 6px;
-      background: var(--line-strong);
-      border-radius: 999px;
-      outline: none;
-      cursor: pointer;
-    }
-    input[type="range"].mix-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--ink);
-      border: 3px solid var(--card);
-      box-shadow: 0 0 0 1px var(--ink), 0 2px 6px rgba(0,0,0,0.18);
-      cursor: grab;
-    }
-    input[type="range"].mix-slider::-moz-range-thumb {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--ink);
-      border: 3px solid var(--card);
-      box-shadow: 0 0 0 1px var(--ink);
-      cursor: grab;
-    }
-    input[type="range"].mix-slider:focus { outline: none; }
-    input[type="range"].mix-slider:focus::-webkit-slider-thumb {
-      box-shadow: 0 0 0 1px var(--ink), 0 0 0 5px rgba(0, 255, 102, 0.32);
-    }
-    .slider-readout {
-      margin-top: 16px;
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .slider-readout strong {
-      color: var(--ink);
-      font-weight: 700;
-    }
-    .slider-readout .untouched { color: var(--muted); font-weight: 500; }
 
     .submit-card {
       grid-column: span 4;
@@ -643,7 +437,6 @@
       transform: none;
     }
 
-    /* === SUCCESS STATE === */
     .success {
       display: none;
       grid-column: 1 / -1;
@@ -669,7 +462,11 @@
       margin: 0 auto;
     }
 
-    /* === FOOTER === */
+    .rentals {
+      background: var(--card-2);
+    }
+    .rentals .q-label { color: var(--ink); }
+
     .foot {
       margin-top: 24px;
       padding: 18px 12px 6px;
@@ -686,16 +483,12 @@
     .foot a { color: rgba(255, 255, 255, 0.7); text-decoration: none; }
     .foot a:hover { color: var(--green); }
 
-    /* === RESPONSIVE === */
     @media (max-width: 980px) {
       .grid { grid-template-columns: repeat(2, 1fr); }
       .span-4, .span-3, .span-2 { grid-column: span 2; }
       .submit-card { grid-column: span 2; }
       .success { grid-column: span 2; }
       .section-band { grid-column: span 2; }
-      /* Mobile/tablet flow: keep the masthead first, then the video.
-         Hide the "an old school for new ideas" tile entirely because
-         the intro paragraph already quotes that phrase verbatim. */
       .hero { order: -2; }
       .video-card { order: -1; }
       .tile { display: none; }
@@ -708,8 +501,6 @@
       .hero, .intro { padding: 28px 24px; }
       .submit-card { flex-direction: column; align-items: stretch; }
       .submit-card button { width: 100%; }
-      .range-row { grid-template-columns: 1fr; }
-      .range-row .dash { display: none; }
     }
   </style>
 </head>
@@ -717,7 +508,6 @@
   <div class="wrap">
     <form id="school-form" class="grid" autocomplete="off" novalidate>
 
-      <!-- HERO -->
       <section class="card hero span-3">
         <div class="hero-top">
           <div class="mark">C</div>
@@ -741,7 +531,6 @@
         </div>
       </section>
 
-      <!-- INFO TILE: WHAT -->
       <aside class="card tile">
         <div class="eyebrow"><span>WHAT</span><span class="arrow">↗</span></div>
         <div class="tile-icon" aria-hidden="true">
@@ -759,7 +548,6 @@
         </div>
       </aside>
 
-      <!-- VIDEO -->
       <section class="card video-card span-4">
         <div class="video-frame">
           <video
@@ -773,17 +561,14 @@
         </div>
       </section>
 
-      <!-- INTRO -->
       <section class="card intro span-4">
-        <span class="lead-num">We are assembling <span>100 founding contributors</span>.</span>
-        <p>The School is a 20,000-square-foot building in Greenpoint, Brooklyn. A nonprofit residency, workspace, and events institution at the intersection of art and frontier technology. One of its founders calls it &ldquo;an old school for new ideas.&rdquo; Artists, technologists, and researchers work side by side here on projects that wouldn't have a natural home anywhere else.</p>
-        <p>We're assembling our first 100 founding contributors: collaborators who shape the community through some mix of dues and labor. Workshops you'd lead, projects you'd run, taste you'd bring, time you'd give.</p>
-        <p>Contribution can be <em>money</em>, <em>skills</em>, or any blend in between. To paraphrase Marshall McLuhan: <em>there are no passengers on this spaceship. Only crew.</em></p>
+        <span class="lead-num">We are selecting <span>50 founding contributors</span> at $300 a month.</span>
+        <p>The School is a 20,000-square-foot building in Greenpoint, Brooklyn. A nonprofit residency, workspace, and events institution at the intersection of art and frontier technology. One of its founders calls it &ldquo;an old school for new ideas.&rdquo;</p>
+        <p>Three questions. $300 a month gets you hot desk access, the room, and the community. What you contribute beyond the dues matters more than the money. To paraphrase Marshall McLuhan: <em>there are no passengers on this spaceship. Only crew.</em></p>
       </section>
 
-      <!-- ======================== SECTION: WHO YOU ARE ======================== -->
       <div class="section-band">
-        <h2>Who you are</h2>
+        <h2>You</h2>
         <span class="count">01 / 04</span>
       </div>
 
@@ -801,261 +586,76 @@
         </div>
       </div>
 
-      <div class="card span-4">
+      <div class="card span-2">
         <div class="q">
           <span class="q-label">03 / Phone <span style="color: var(--muted); font-weight: 400; letter-spacing: 0;">(optional)</span></span>
           <input type="tel" name="phone" placeholder="+1 555 555 5555" autocomplete="tel">
         </div>
       </div>
 
-      <div class="card span-4">
+      <div class="card span-2">
         <div class="q">
           <span class="q-label">04 / One line on what you do</span>
-          <p class="q-help">Job, practice, project. Whatever you'd say at the door.</p>
           <input type="text" name="what_you_do" placeholder="Painter / Founder of X / Researcher at Y / …">
         </div>
       </div>
 
-      <!-- ======================== SECTION: WHAT BRINGS YOU HERE ======================== -->
       <div class="section-band">
-        <h2>What brings you here</h2>
-        <span class="count">05 / 06</span>
+        <h2>Three questions</h2>
+        <span class="count">05 / 07</span>
       </div>
 
       <div class="card span-4">
         <div class="q">
-          <span class="q-label">05 / What would you use The School for?</span>
+          <span class="q-label">05 / Are you in at $300 a month?</span>
+          <p class="q-help">Founding rate, locked for at least the first three months. Hot desk access, the room, the community.</p>
           <div class="opts">
-            <label class="opt"><input type="checkbox" name="uses" value="Art"><span>Art</span></label>
-            <label class="opt"><input type="checkbox" name="uses" value="Workspace"><span>Workspace</span></label>
-            <label class="opt"><input type="checkbox" name="uses" value="Events"><span>Events</span></label>
-            <label class="opt"><input type="checkbox" name="uses" value="Studio time"><span>Studio time</span></label>
-            <label class="opt"><input type="checkbox" name="uses" value="Sound beds"><span>Sound beds</span></label>
-            <label class="opt"><input type="checkbox" name="uses" value="Community"><span>Community</span></label>
-            <label class="opt"><input type="checkbox" name="uses" value="Classes"><span>Classes</span></label>
-            <label class="opt"><input type="checkbox" name="uses" value="Just curious"><span>Just curious</span></label>
+            <label class="opt"><input type="radio" name="willing_300" value="Yes, count me in"><span>Yes, count me in</span></label>
+            <label class="opt"><input type="radio" name="willing_300" value="Maybe, tell me more"><span>Maybe, tell me more</span></label>
+            <label class="opt"><input type="radio" name="willing_300" value="Not right now"><span>Not right now</span></label>
           </div>
         </div>
       </div>
 
       <div class="card span-4">
         <div class="q">
-          <span class="q-label">06 / What inspires you about becoming a contributor to The School?</span>
-          <textarea name="inspires" rows="4"></textarea>
-        </div>
-      </div>
-
-      <!-- ======================== SECTION: RHYTHM ======================== -->
-      <div class="section-band">
-        <h2>Rhythm</h2>
-        <span class="count">07 / 09</span>
-      </div>
-
-      <div class="card span-2">
-        <div class="q">
-          <span class="q-label">07 / How often would you come?</span>
-          <div class="opts">
-            <label class="opt"><input type="radio" name="frequency" value="Occasional"><span>Occasional</span></label>
-            <label class="opt"><input type="radio" name="frequency" value="Weekly"><span>Weekly</span></label>
-            <label class="opt"><input type="radio" name="frequency" value="3+ days a week"><span>3+ days/wk</span></label>
-            <label class="opt"><input type="radio" name="frequency" value="Live there"><span>Live there</span></label>
-          </div>
-        </div>
-      </div>
-
-      <div class="card span-2">
-        <div class="q">
-          <span class="q-label">08 / When?</span>
-          <div class="opts">
-            <label class="opt"><input type="checkbox" name="when" value="Weekdays"><span>Weekdays</span></label>
-            <label class="opt"><input type="checkbox" name="when" value="Evenings"><span>Evenings</span></label>
-            <label class="opt"><input type="checkbox" name="when" value="Weekends"><span>Weekends</span></label>
-            <label class="opt"><input type="checkbox" name="when" value="Overnight"><span>Overnight</span></label>
-          </div>
+          <span class="q-label">06 / Your ninja skill</span>
+          <p class="q-help">One thing you could contribute to the community beyond the dues. A workshop you could teach, a project you'd run, a network you'd open, a skill of yours that doesn't go in a bio. The specific is better than the general.</p>
+          <textarea name="ninja_skill" rows="4" placeholder="A monthly drone photography workshop · I'd run a botany salon · I can help wire a sound system · I could teach an intro to AI class · …"></textarea>
         </div>
       </div>
 
       <div class="card span-4">
         <div class="q">
-          <span class="q-label">09 / What kind of space?</span>
-          <p class="q-help">Pick the one that fits how you'd actually use it. We won't know what the right mix is until we see how people answer.</p>
+          <span class="q-label">07 / Informational session, May 29 at 6 PM</span>
+          <p class="q-help">In person at the building in Greenpoint. We'll send the address to everyone who says yes.</p>
           <div class="opts">
-            <label class="opt"><input type="radio" name="space_type" value="Hot desk"><span>Hot desk</span></label>
-            <label class="opt"><input type="radio" name="space_type" value="Dedicated desk"><span>Dedicated desk</span></label>
-            <label class="opt"><input type="radio" name="space_type" value="Small office or studio"><span>Small office or studio</span></label>
-            <label class="opt"><input type="radio" name="space_type" value="Large office or studio"><span>Large office or studio</span></label>
-            <label class="opt"><input type="radio" name="space_type" value="Other" id="space-type-other-radio"><span>Other</span></label>
-          </div>
-          <input type="text" name="space_type_other" id="space-type-other-input" placeholder="Describe the setup that would work for you…" style="display:none; margin-top:12px;">
-        </div>
-      </div>
-
-      <!-- Conditional: shown only when an office or studio is selected. -->
-      <div class="card span-4" id="office-followup-card" style="display:none;">
-        <div class="q">
-          <span class="q-label">09a / If office or studio, who's using it?</span>
-          <div class="opts">
-            <label class="opt"><input type="radio" name="office_team_size" value="Just me"><span>Just me</span></label>
-            <label class="opt"><input type="radio" name="office_team_size" value="2–3 people"><span>2–3 people</span></label>
-            <label class="opt"><input type="radio" name="office_team_size" value="4+ people"><span>4+ people</span></label>
-          </div>
-        </div>
-        <div class="q" style="margin-top: 22px;">
-          <span class="q-label">09b / What would you need in it?</span>
-          <p class="q-help">Check anything that applies.</p>
-          <div class="opts">
-            <label class="opt"><input type="checkbox" name="office_needs" value="Workstation only"><span>Workstation only</span></label>
-            <label class="opt"><input type="checkbox" name="office_needs" value="Studio equipment"><span>Studio equipment</span></label>
-            <label class="opt"><input type="checkbox" name="office_needs" value="Materials or instruments"><span>Materials or instruments</span></label>
-            <label class="opt"><input type="checkbox" name="office_needs" value="Overnight storage of valuable gear"><span>Overnight storage of valuable gear</span></label>
-            <label class="opt"><input type="checkbox" name="office_needs" value="Only if it's already furnished"><span>Only if it's already furnished</span></label>
-          </div>
-        </div>
-        <div class="q" style="margin-top: 22px;">
-          <span class="q-label">09c / Which room fits?</span>
-          <p class="q-help">All rooms below are offered on monthly tenancy. <a href="rate-card.pdf" target="_blank">Full rate card</a>.</p>
-
-          <table class="rate-card">
-            <thead>
-              <tr><th></th><th>Dim</th><th>Area</th><th class="r">Rate</th></tr>
-            </thead>
-            <tbody>
-              <tr class="rate-group"><td colspan="4">The Studios &nbsp;&middot;&nbsp; Ground floor</td></tr>
-              <tr><td>S.01</td><td>23′ × 26′</td><td>598 sf</td><td class="r">$14,950 /mo</td></tr>
-              <tr><td>S.02</td><td>23′ × 26′</td><td>598 sf</td><td class="r">$14,950 /mo</td></tr>
-              <tr class="rate-group"><td colspan="4">The Classrooms &nbsp;&middot;&nbsp; Second floor</td></tr>
-              <tr><td>C.01</td><td>23′ × 30′</td><td>690 sf</td><td class="r">$17,250 /mo</td></tr>
-              <tr><td>C.02</td><td>31′ × 20′</td><td>620 sf</td><td class="r">$15,500 /mo</td></tr>
-              <tr><td>C.03</td><td>31′ × 20′</td><td>620 sf</td><td class="r">$15,500 /mo</td></tr>
-              <tr><td>C.04</td><td>31′ × 20′</td><td>620 sf</td><td class="r">$15,500 /mo</td></tr>
-              <tr><td>C.05</td><td>15′ × 20′</td><td>300 sf</td><td class="r">$7,500 /mo</td></tr>
-              <tr><td>C.06</td><td>19′ × 13′</td><td>247 sf</td><td class="r">$6,175 /mo</td></tr>
-              <tr><td>C.07</td><td>10′ × 20′</td><td>200 sf</td><td class="r">$5,000 /mo</td></tr>
-              <tr><td>C.08</td><td>19′ × 9′</td><td>171 sf</td><td class="r">$4,275 /mo</td></tr>
-              <tr><td>C.09</td><td>19′ × 8′</td><td>152 sf</td><td class="r">$3,800 /mo</td></tr>
-            </tbody>
-          </table>
-
-          <div class="opts" style="margin-top: 14px;">
-            <label class="opt"><input type="radio" name="room_interest" value="Studio (~600 sf, $14,950/mo)"><span>Studio · ~600 sf · $14,950</span></label>
-            <label class="opt"><input type="radio" name="room_interest" value="Large classroom (620–690 sf, $15.5k–$17.25k/mo)"><span>Large classroom · 620–690 sf · $15.5k–$17.25k</span></label>
-            <label class="opt"><input type="radio" name="room_interest" value="Mid classroom (200–300 sf, $5k–$7.5k/mo)"><span>Mid classroom · 200–300 sf · $5k–$7.5k</span></label>
-            <label class="opt"><input type="radio" name="room_interest" value="Small classroom (150–170 sf, $3.8k–$4.3k/mo)"><span>Small classroom · 150–170 sf · $3.8k–$4.3k</span></label>
-            <label class="opt"><input type="radio" name="room_interest" value="Not sure yet, would tour first"><span>Not sure yet · would tour first</span></label>
-          </div>
-        </div>
-      </div>
-
-      <!-- ======================== SECTION: DUES ======================== -->
-      <div class="section-band">
-        <h2>Dues</h2>
-        <span class="count">10</span>
-      </div>
-      <p class="section-note">For information gathering. Your answers here don't commit you to anything.</p>
-
-      <div class="card span-4" id="dues-amount-card">
-        <div class="q">
-          <span class="q-label">10 / What range would you contribute in dues each month?</span>
-          <p class="q-help">Membership floor is $100/mo.</p>
-          <div class="dual-slider">
-            <div class="dual-track">
-              <div class="dual-fill" id="dues-fill"></div>
-            </div>
-            <input type="range" id="dues-min" name="price_min" min="100" max="1000" step="25" value="200">
-            <input type="range" id="dues-max" name="price_max" min="100" max="1000" step="25" value="500">
-          </div>
-          <div class="dual-scale">
-            <span>$100</span><span>$325</span><span>$550</span><span>$775</span><span>$1,000+</span>
-          </div>
-          <p class="dual-readout" id="dues-readout"><span class="untouched">Drag the thumbs to set a range</span></p>
-        </div>
-      </div>
-
-      <!-- ======================== SECTION: WHAT YOU'D BRING ======================== -->
-      <div class="section-band">
-        <h2>What you'd bring</h2>
-        <span class="count">11 / 12</span>
-      </div>
-
-      <div class="card span-4">
-        <div class="q">
-          <span class="q-label">11 / What labor would you contribute?</span>
-          <p class="q-help">Specifically: workshops you could lead, programming you'd run, expertise you'd share, work you'd hang on the wall, time you'd give. The more specific, the better. This is how we read fit.</p>
-          <textarea name="contribute" rows="4" placeholder="A monthly workshop on … / I'd want to organize … / I can help with …"></textarea>
-        </div>
-      </div>
-
-      <div class="card span-4">
-        <div class="q">
-          <span class="q-label">12 / Must-haves and nice-to-haves</span>
-          <p class="q-help">Tie this to your dues range. What's the floor (what would make it worth the minimum), what's the ceiling (what would justify the maximum)?</p>
-          <textarea name="must_haves" rows="4" placeholder="At $X/mo I need …  ·  At $Y/mo I'd want …"></textarea>
-        </div>
-      </div>
-
-      <!-- ======================== SECTION: ONE MORE ======================== -->
-      <div class="section-band">
-        <h2>One more</h2>
-        <span class="count">13</span>
-      </div>
-
-      <div class="card span-4">
-        <div class="q">
-          <span class="q-label">13 / Informational session</span>
-          <p class="q-help">We're hosting one the last week of May for founding contributors. The exact date is being finalized. Mark interest now and we'll send details when we have them.</p>
-          <div class="opts">
-            <label class="opt"><input type="radio" name="info_session" value="Yes, interested"><span>Yes, interested</span></label>
+            <label class="opt"><input type="radio" name="info_session" value="Yes, I'll be there"><span>Yes, I'll be there</span></label>
             <label class="opt"><input type="radio" name="info_session" value="Maybe"><span>Maybe</span></label>
-            <label class="opt"><input type="radio" name="info_session" value="Not this time"><span>Not this time</span></label>
+            <label class="opt"><input type="radio" name="info_session" value="Can't make it"><span>Can't make it</span></label>
           </div>
         </div>
       </div>
 
-      <!-- ======================== SECTION: OPEN ======================== -->
-      <div class="section-band">
-        <h2>Anything else</h2>
-        <span class="count">14</span>
-      </div>
-
-      <div class="card span-4">
+      <div class="card span-4 rentals">
         <div class="q">
-          <span class="q-label">14 / Anything else you want us to know?</span>
-          <textarea name="anything_else" rows="4"></textarea>
+          <span class="q-label">Looking for office or studio space?</span>
+          <p class="q-help">Separate from contributor membership. The School has dedicated rooms ranging from 150 to 700 square feet, on monthly tenancy. <a href="rate-card.pdf" target="_blank">See the rate card</a>, then email <a href="mailto:james@sayinterviews.com">james@sayinterviews.com</a>.</p>
         </div>
       </div>
 
-      <!-- ======================== SECTION: THE CONVENT ======================== -->
-      <div class="section-band">
-        <h2>The Convent</h2>
-        <span class="count">15</span>
-      </div>
-
-      <div class="card span-4">
-        <div class="q">
-          <span class="q-label">15 / Would you be interested in a Convent residency?</span>
-          <p class="q-help">The Convent is The School's selective artist and technologist residency program, located in the 8,000-square-foot former convent next door. Includes living space on site. By application only, separate from contributing at The School.</p>
-          <div class="opts">
-            <label class="opt"><input type="radio" name="residency_interest" value="Yes, tell me more"><span>Yes, tell me more</span></label>
-            <label class="opt"><input type="radio" name="residency_interest" value="Not for me"><span>Not for me</span></label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Honeypot (off-screen) -->
       <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
         <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
       </div>
 
-      <!-- SUBMIT -->
       <section class="card submit-card">
         <p class="submit-msg" id="submit-msg">Contribution is not consumption.</p>
         <button type="submit" id="submit-btn">Submit response →</button>
       </section>
 
-      <!-- SUCCESS STATE -->
       <section class="card success" id="success-card">
         <h2 class="success-headline">Response <em>received.</em></h2>
-        <p class="success-sub">Thank you. We read every one of these. We'll be in touch at the email you left once we've gone through the responses, and ahead of the May informational session if you said yes.</p>
+        <p class="success-sub">Thank you. We read every one of these. We'll be in touch at the email you left, and ahead of the May 29 session if you said yes.</p>
       </section>
     </form>
 
@@ -1084,66 +684,6 @@
       }
       tick(); setInterval(tick, 1000);
 
-      // Space-type conditional reveals: "Other" freeform input + office follow-ups.
-      const otherInput = document.getElementById('space-type-other-input');
-      const officeFollowup = document.getElementById('office-followup-card');
-      const officeValues = new Set(['Small office or studio', 'Large office or studio']);
-      document.querySelectorAll('input[name="space_type"]').forEach(r => {
-        r.addEventListener('change', () => {
-          const isOther = document.getElementById('space-type-other-radio').checked;
-          otherInput.style.display = isOther ? 'block' : 'none';
-          if (isOther) otherInput.focus();
-          else otherInput.value = '';
-
-          const isOffice = officeValues.has(r.value) && r.checked;
-          officeFollowup.style.display = isOffice ? '' : 'none';
-          // Clear the office sub-fields when the user moves away from office.
-          if (!isOffice) {
-            officeFollowup.querySelectorAll('input[type="radio"], input[type="checkbox"]')
-              .forEach(el => { el.checked = false; });
-          }
-        });
-      });
-
-      // Dual-thumb dues range slider.
-      const duesMin = document.getElementById('dues-min');
-      const duesMax = document.getElementById('dues-max');
-      const duesFill = document.getElementById('dues-fill');
-      const duesReadout = document.getElementById('dues-readout');
-      const DUES_MIN_VALUE = 100;
-      const DUES_MAX_VALUE = 1000;
-      const DUES_RANGE = DUES_MAX_VALUE - DUES_MIN_VALUE;
-      let duesTouched = false;
-      function fmtDollars(n) {
-        if (n >= 1000) return '$' + (n / 1000).toFixed(n % 1000 === 0 ? 0 : 1) + 'k';
-        return '$' + n;
-      }
-      function renderDues() {
-        let lo = parseInt(duesMin.value, 10);
-        let hi = parseInt(duesMax.value, 10);
-        if (lo > hi) {
-          // Swap when the user drags one thumb past the other.
-          if (document.activeElement === duesMin) duesMin.value = hi;
-          else duesMax.value = lo;
-          lo = parseInt(duesMin.value, 10);
-          hi = parseInt(duesMax.value, 10);
-        }
-        duesFill.style.left = ((lo - DUES_MIN_VALUE) / DUES_RANGE * 100) + '%';
-        duesFill.style.width = ((hi - lo) / DUES_RANGE * 100) + '%';
-        let label;
-        if (lo === hi)            label = '<strong>' + fmtDollars(lo) + '/mo</strong> exactly';
-        else                      label = '<strong>' + fmtDollars(lo) + ' to ' + fmtDollars(hi) + '</strong> / month';
-        duesReadout.innerHTML = duesTouched
-          ? label
-          : '<span class="untouched">Drag the thumbs to set a range</span>';
-      }
-      function onDuesInput() { duesTouched = true; renderDues(); }
-      duesMin.addEventListener('input', onDuesInput);
-      duesMax.addEventListener('input', onDuesInput);
-      renderDues();
-
-
-
       function collect() {
         const fd = new FormData(form);
         const out = {};
@@ -1151,12 +691,6 @@
           const values = fd.getAll(key);
           out[key] = values.length > 1 ? values : values[0];
         }
-        ['uses', 'when', 'office_needs'].forEach(k => {
-          if (out[k] === undefined) out[k] = [];
-          else if (!Array.isArray(out[k])) out[k] = [out[k]];
-        });
-        // If the dues slider was never touched, empty out the values.
-        if (!duesTouched) { out.price_min = ''; out.price_max = ''; }
         return out;
       }
 
