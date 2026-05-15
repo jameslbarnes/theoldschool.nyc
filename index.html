@@ -693,11 +693,12 @@
       .submit-card { grid-column: span 2; }
       .success { grid-column: span 2; }
       .section-band { grid-column: span 2; }
-      /* Mobile/tablet flow: keep the masthead first, but move the video
-         above the "old school for new ideas" tile so the visual lands
-         right under the headline. */
+      /* Mobile/tablet flow: keep the masthead first, then the video.
+         Hide the "an old school for new ideas" tile entirely because
+         the intro paragraph already quotes that phrase verbatim. */
       .hero { order: -2; }
       .video-card { order: -1; }
+      .tile { display: none; }
     }
     @media (max-width: 580px) {
       .grid { grid-template-columns: 1fr; gap: 12px; }
