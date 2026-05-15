@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The School · Stewardship Survey</title>
-  <meta name="description" content="The School is selecting its first 100 founding stewards. Collaborators who shape this community through some mix of dues and labor. No passengers on this spaceship, only crew.">
+  <meta name="description" content="The School is assembling its first 100 founding stewards. Collaborators who shape this community through some mix of dues and labor. No passengers on this spaceship, only crew.">
 
   <script>
     window.SCHOOL_SURVEY_ENDPOINT = "https://www.sayinterviews.com/api/school-survey";
@@ -282,13 +282,15 @@
       width: 100%;
       aspect-ratio: 16 / 9;
     }
-    .video-frame iframe {
+    .video-frame iframe,
+    .video-frame video {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       border: 0;
       display: block;
+      background: #000;
     }
 
     /* === INTRO CARD === */
@@ -754,19 +756,20 @@
       <!-- VIDEO -->
       <section class="card video-card span-4">
         <div class="video-frame">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/PYnlHn6apP0?rel=0&modestbranding=1"
-            title="The School"
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          <video
+            controls
+            preload="metadata"
+            playsinline
+            src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/theschool-1080p.mp4">
+            Your browser does not support embedded video.
+            <a href="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/theschool-1080p.mp4">Download the video.</a>
+          </video>
         </div>
       </section>
 
       <!-- INTRO -->
       <section class="card intro span-4">
-        <span class="lead-num">We are selecting <span>100 founding stewards</span>.</span>
+        <span class="lead-num">We are assembling <span>100 founding stewards</span>.</span>
         <p>The School is a 20,000-square-foot building in Greenpoint, Brooklyn. A nonprofit residency, workspace, and events institution at the intersection of art and frontier technology. One of its founders calls it &ldquo;an old school for new ideas.&rdquo; Artists, technologists, and researchers work side by side here on projects that wouldn't have a natural home anywhere else.</p>
         <p>We're selecting our first 100 founding stewards: collaborators who shape the community through some mix of dues and labor. Workshops you'd lead, projects you'd run, taste you'd bring, time you'd give.</p>
         <p>Stewardship can be <em>money</em>, <em>skills</em>, or any blend in between. To paraphrase Marshall McLuhan: <em>there are no passengers on this spaceship. Only crew.</em></p>
