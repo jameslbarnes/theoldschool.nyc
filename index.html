@@ -823,6 +823,21 @@
             <label class="opt"><input type="checkbox" name="office_needs" value="Only if it's already furnished"><span>Only if it's already furnished</span></label>
           </div>
         </div>
+        <div class="q" style="margin-top: 22px;">
+          <span class="q-label">09c / What range would you pay for the office or studio per month?</span>
+          <p class="q-help">Separate from any general dues. Drag both thumbs to $0 if you'd only take it through labor.</p>
+          <div class="dual-slider">
+            <div class="dual-track">
+              <div class="dual-fill" id="office-fill"></div>
+            </div>
+            <input type="range" id="office-min" name="office_price_min" min="0" max="5000" step="100" value="500">
+            <input type="range" id="office-max" name="office_price_max" min="0" max="5000" step="100" value="2000">
+          </div>
+          <div class="dual-scale">
+            <span>$0</span><span>$1k</span><span>$2.5k</span><span>$3.5k</span><span>$5k+</span>
+          </div>
+          <p class="dual-readout" id="office-readout"><span class="untouched">Drag the thumbs to set a range</span></p>
+        </div>
       </div>
 
       <!-- ======================== SECTION: MONEY ======================== -->
@@ -1035,6 +1050,38 @@
       duesMax.addEventListener('input', onDuesInput);
       renderDues();
 
+      // Office-price dual-thumb slider (only relevant when an office is selected,
+      // but always wired up — the card visibility is handled separately).
+      const officeMin = document.getElementById('office-min');
+      const officeMax = document.getElementById('office-max');
+      const officeFill = document.getElementById('office-fill');
+      const officeReadout = document.getElementById('office-readout');
+      const OFFICE_MAX_VALUE = 5000;
+      let officeTouched = false;
+      function renderOffice() {
+        let lo = parseInt(officeMin.value, 10);
+        let hi = parseInt(officeMax.value, 10);
+        if (lo > hi) {
+          if (document.activeElement === officeMin) officeMin.value = hi;
+          else officeMax.value = lo;
+          lo = parseInt(officeMin.value, 10);
+          hi = parseInt(officeMax.value, 10);
+        }
+        officeFill.style.left = (lo / OFFICE_MAX_VALUE * 100) + '%';
+        officeFill.style.width = ((hi - lo) / OFFICE_MAX_VALUE * 100) + '%';
+        let label;
+        if (lo === 0 && hi === 0) label = '<strong>Labor only</strong>, no office dues';
+        else if (lo === hi)       label = '<strong>' + fmtDollars(lo) + '/mo</strong> exactly';
+        else                      label = '<strong>' + fmtDollars(lo) + ' to ' + fmtDollars(hi) + '</strong> / month';
+        officeReadout.innerHTML = officeTouched
+          ? label
+          : '<span class="untouched">Drag the thumbs to set a range</span>';
+      }
+      function onOfficeInput() { officeTouched = true; renderOffice(); }
+      officeMin.addEventListener('input', onOfficeInput);
+      officeMax.addEventListener('input', onOfficeInput);
+      renderOffice();
+
       // Dues-vs-labor slider live readout + conditional dues-amount card.
       const slider = document.getElementById('dues-labor-slider');
       const readout = document.getElementById('dues-labor-readout');
@@ -1071,6 +1118,8 @@
         if (!sliderTouched) out.contribution_mix = '';
         // Same for the dues slider. Empty means "did not engage."
         if (!duesTouched) { out.price_min = ''; out.price_max = ''; }
+        // Office price slider too.
+        if (!officeTouched) { out.office_price_min = ''; out.office_price_max = ''; }
         return out;
       }
 
