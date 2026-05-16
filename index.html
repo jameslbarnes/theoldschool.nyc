@@ -155,6 +155,7 @@
       word-spacing: -0.28em;
       text-transform: uppercase;
       color: var(--ink);
+      white-space: nowrap;
     }
 
     .hero-body { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 40px 0 0; }
@@ -408,10 +409,12 @@
     @media (max-width: 680px) {
       body { padding: 12px; }
       .grid { gap: 12px; }
-      .c-hero { padding: 28px 24px; }
-      .hero-headline { font-size: clamp(44px, 13vw, 72px); white-space: normal; }
-      .hero-foot { gap: 16px; }
-      .cta { margin-left: 0; width: 100%; text-align: center; }
+      .c-hero { padding: 28px 24px; min-height: 0; }
+      .hero-top { gap: 8px; }
+      .logo-mark { width: 44px; height: 44px; }
+      .wordmark { font-size: clamp(24px, 8.4vw, 40px); }
+      .hero-body { padding-top: 28px; }
+      .hero-pitch { margin-top: 18px; }
       .form-inner { padding: 30px 22px 34px; }
       .pair { grid-template-columns: 1fr; gap: 20px; }
       .submit-row { flex-direction: column; align-items: stretch; }
