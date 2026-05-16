@@ -227,6 +227,37 @@
     .code{ width:64px; } .dim{ width:auto; } .area{ width:auto; } .occ{ width:auto; }
   }
 
+  /* phones */
+  @media (max-width: 600px){
+    .sheet{ margin:80px auto 40px; padding:28px 18px 24px; max-width:calc(100vw - 24px); }
+    .contact{ max-width:calc(100vw - 24px); padding:24px 20px; }
+    .toolbar{ top:10px; right:10px; left:10px; }
+    .toolbar .left{ display:none; }
+    .btn{ padding:10px 12px; letter-spacing:0.12em; }
+    .masthead{ padding:28px 0 20px; }
+    .masthead h1{ font-size:clamp(34px, 13vw, 56px); }
+    .lede{ padding:6px 0 28px; }
+    .lede p{ font-size:15px; }
+    .section{ padding-top:28px; }
+    .sec-head{ grid-template-columns:1fr; row-gap:6px; padding-bottom:10px; }
+    .sec-head h2{ font-size:26px; }
+    .sec-head .meta{ text-align:left; }
+    .plans{ padding-top:28px; }
+    .plans-head{ grid-template-columns:1fr; row-gap:6px; padding-bottom:12px; }
+    .plans-head h2{ font-size:26px; }
+    .tbl tbody td{ font-size:13px; padding:9px 0; }
+    .tbl thead th{ font-size:8px; letter-spacing:0.16em; }
+    .code{ width:46px; font-size:10.5px; letter-spacing:0.12em; }
+    .dim{ font-size:12px; }
+    .area .u{ font-size:10px; }
+    .occ::before{ margin-right:4px; font-size:10px; }
+    .rate .per, .rate .from{ font-size:8.5px; letter-spacing:0.1em; margin-left:4px; }
+    .rate .from{ margin-right:4px; margin-left:0; }
+    .notes{ grid-template-columns:1fr; row-gap:14px; margin-top:36px; }
+    .foot{ grid-template-columns:1fr; row-gap:6px; text-align:left; }
+    .foot .c, .foot .r{ text-align:left; }
+  }
+
   /* ─── print ─── */
   @media print{
     @page{ size: Letter portrait; margin: 0.4in; }
