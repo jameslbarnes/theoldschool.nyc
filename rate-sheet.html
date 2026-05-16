@@ -1,0 +1,467 @@
+<!DOCTYPE html><html lang="en"><head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Old School — Room Schedule A-002</title>
+<style>
+  :root{
+    --ink:#0a0a0a;
+    --paper:#ffffff;
+    --rule:#0a0a0a;
+    --mute:#7a7a7a;
+    --mute-2:#b8b8b8;
+    --pad:64px;
+    --hair:0.6px;
+    --hair-2:1px;
+    --type-mono: 'Helvetica Neue','Helvetica','Arial',sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:#efefef; color:var(--ink);
+    font-family:var(--type-mono); -webkit-font-smoothing:antialiased; font-feature-settings:"tnum" 1, "kern" 1; }
+
+  /* ─── toolbar ─── */
+  .toolbar{
+    position:fixed; top:16px; right:16px; left:16px;
+    display:flex; justify-content:space-between; align-items:center;
+    z-index:50; pointer-events:none;
+  }
+  .toolbar .left{ font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#444;
+    background:rgba(255,255,255,0.85); backdrop-filter:blur(6px); padding:8px 12px; border:var(--hair) solid #d0d0d0; }
+  .toolbar .right{ display:flex; gap:8px; pointer-events:auto; }
+  .btn{
+    pointer-events:auto;
+    font-family:inherit; font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+    padding:11px 16px; border:var(--hair-2) solid var(--ink); background:var(--paper); color:var(--ink);
+    cursor:pointer; text-decoration:none; line-height:1;
+    transition:background .12s ease, color .12s ease;
+  }
+  .btn:hover{ background:var(--ink); color:var(--paper); }
+  .btn.dark{ background:var(--ink); color:var(--paper); }
+  .btn.dark:hover{ background:var(--paper); color:var(--ink); }
+  .btn .dot{ display:inline-block; width:5px; height:5px; background:currentColor; vertical-align:middle; margin-right:8px; transform:translateY(-1px); }
+
+  /* ─── sheet ─── */
+  .sheet{
+    width:1100px; max-width:calc(100vw - 32px);
+    margin:88px auto 64px;
+    background:var(--paper);
+    padding:var(--pad) var(--pad) 48px;
+    border:var(--hair) solid #d8d8d8;
+    box-shadow:0 1px 0 rgba(0,0,0,.02), 0 30px 60px -30px rgba(0,0,0,.18);
+    position:relative;
+  }
+
+  /* tiny tracked label */
+  .lbl{ font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink); }
+  .lbl.mute{ color:var(--mute); }
+  .num{ font-variant-numeric:tabular-nums; }
+
+  /* top strip */
+  .strip{
+    display:grid;
+    grid-template-columns: 1.1fr 1fr 1fr 1.4fr;
+    column-gap:0;
+    padding:2px 0 10px;
+  }
+  .strip > div{ display:flex; flex-direction:column; gap:4px; padding-right:24px; }
+  .strip .k{ font-size:9.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--mute); }
+  .strip .v{ font-size:11.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); }
+
+  /* masthead */
+  .masthead{
+    padding:48px 0 28px;
+  }
+  .masthead h1{
+    font-family:inherit; font-weight:400; margin:0;
+    font-size:96px; letter-spacing:-0.035em; line-height:.95;
+  }
+  .masthead .kicker{
+    font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--mute);
+    margin:0 0 16px 0;
+  }
+
+  /* lede */
+  .lede{
+    display:grid; grid-template-columns: 1.4fr 1fr; column-gap:48px;
+    padding:8px 0 40px;
+    align-items:end;
+  }
+  .lede p{ margin:0; font-size:18px; line-height:1.45; max-width:52ch; }
+  .lede .meta{
+    display:grid; grid-template-columns:auto 1fr; column-gap:18px; row-gap:8px;
+    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+  }
+  .lede .meta .k{ color:var(--mute); }
+  .lede .meta .v{ color:var(--ink); text-align:right; }
+
+  /* plans */
+  .plans{
+    padding-top:40px;
+  }
+  .plans-head{
+    display:grid; grid-template-columns: 1fr auto; align-items:baseline;
+    column-gap:24px;
+    padding-bottom:18px;
+  }
+  .plans-head h2{
+    margin:0; font-weight:400; font-size:36px; letter-spacing:-0.015em;
+  }
+  .plans-head .meta{
+    font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink); text-align:right;
+  }
+  .plans-head .meta .dim{ color:var(--mute); margin-left:10px; }
+  .plans-frame{
+    border-top:var(--hair) solid var(--ink);
+    padding:24px 0 8px;
+    overflow:hidden;
+  }
+  .plans-frame .crop{
+    display:block; width:100%;
+    aspect-ratio: 1876 / 1080;
+    overflow:hidden;
+  }
+  .plans-frame img{
+    display:block; width:100%; height:auto;
+    filter: grayscale(1) contrast(1.02);
+  }
+  .plans-cap{
+    display:grid; grid-template-columns:1fr 1fr 1fr; column-gap:24px;
+    padding-top:14px;
+    font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--mute);
+  }
+  .plans-cap .c{ text-align:center; color:var(--ink); }
+  .plans-cap .r{ text-align:right; }
+
+  /* section block */
+  .section{ padding-top:40px; }
+
+  .sec-head{
+    display:grid; grid-template-columns: 1fr auto; align-items:baseline;
+    column-gap:24px;
+    padding-bottom:14px;
+  }
+  .sec-head .index{
+    font-size:10.5px; letter-spacing:0.22em; color:var(--mute); padding-top:6px;
+  }
+  .sec-head h2{
+    margin:0; font-weight:400; font-size:36px; letter-spacing:-0.015em;
+  }
+  .sec-head .meta{
+    font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink); text-align:right;
+  }
+  .sec-head .meta .dim{ color:var(--mute); margin-left:10px; }
+
+  /* table */
+  .tbl{
+    width:100%; border-collapse:collapse;
+    border-top:var(--hair) solid var(--ink);
+  }
+  .tbl thead th{
+    text-align:left; font-weight:400; padding:10px 0 14px;
+    font-size:9.5px; letter-spacing:0.24em; text-transform:uppercase; color:var(--mute);
+  }
+  .tbl th.right, .tbl td.right{ text-align:right; }
+  .tbl tbody td{
+    padding:11px 0; font-size:17px; line-height:1.2;
+    vertical-align:baseline;
+  }
+  .tbl tbody tr:first-child td{ padding-top:4px; }
+  .code{ font-size:13px; letter-spacing:0.18em; color:var(--ink); width:88px; }
+  .dim{ width:130px; color:var(--ink); font-feature-settings:"tnum" 1; }
+  .area{ width:120px; color:var(--ink); }
+  .area .u{ color:var(--mute); margin-left:4px; font-size:13px; letter-spacing:0.08em; }
+  .occ{ width:90px; color:var(--ink); }
+  .occ::before{ content:"↥"; color:var(--mute); margin-right:8px; font-size:13px; }
+  .rate{ font-feature-settings:"tnum" 1; }
+  .rate .per{ color:var(--mute); font-size:11px; letter-spacing:0.18em; margin-left:8px; text-transform:uppercase; }
+  .rate .from{ color:var(--mute); font-size:11px; letter-spacing:0.18em; margin-right:8px; text-transform:uppercase; }
+
+  /* notes */
+  .notes{
+    margin-top:56px;
+    display:grid; grid-template-columns: repeat(4, 1fr);
+    column-gap:32px; row-gap:8px;
+    padding-top:20px;
+    border-top:var(--hair) solid var(--ink);
+  }
+  .notes .col h4{
+    margin:0 0 10px; font-weight:400;
+    font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--mute);
+  }
+  .notes .col p{ margin:0; font-size:13.5px; line-height:1.45; color:var(--ink); }
+
+  /* footer */
+  .foot{
+    margin-top:40px;
+    padding-top:14px;
+    display:grid; grid-template-columns: 1fr 1fr 1fr;
+    font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--mute);
+  }
+  .foot .c{ text-align:center; }
+  .foot .r{ text-align:right; color:var(--ink); }
+
+  /* contact card */
+  .contact{
+    margin:32px auto 96px; width:1100px; max-width:calc(100vw - 32px);
+    background:var(--ink); color:var(--paper);
+    padding:36px 64px;
+    display:grid; grid-template-columns: 1fr auto; align-items:center;
+    border:var(--hair) solid var(--ink);
+  }
+  .contact h3{ margin:0 0 6px; font-weight:400; font-size:22px; letter-spacing:-0.01em; }
+  .contact p{ margin:0; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#b8b8b8; }
+  .contact a.btn{ background:transparent; color:var(--paper); border-color:var(--paper); }
+  .contact a.btn:hover{ background:var(--paper); color:var(--ink); }
+
+  /* small */
+  @media (max-width: 1100px){
+    .sheet{ padding:40px 32px 32px; }
+    .masthead h1{ font-size:64px; }
+    .lede{ grid-template-columns: 1fr; }
+    .lede .meta{ margin-top:24px; }
+    .strip{ grid-template-columns: 1fr 1fr; row-gap:8px; }
+    .notes{ grid-template-columns: 1fr 1fr; }
+    .contact{ grid-template-columns:1fr; row-gap:20px; padding:28px 32px; }
+    .code{ width:64px; } .dim{ width:auto; } .area{ width:auto; } .occ{ width:auto; }
+  }
+
+  /* ─── print ─── */
+  @media print{
+    @page{ size: Letter portrait; margin: 0.4in; }
+    html, body{ background:#fff; }
+    .toolbar, .contact{ display:none !important; }
+    .sheet{
+      width:auto; max-width:none; margin:0; padding:0;
+      border:0; box-shadow:none;
+    }
+
+    /* masthead */
+    .masthead{ padding:0 0 10px; }
+    .masthead h1{ font-size:38px; letter-spacing:-0.025em; }
+    .masthead .kicker{ font-size:8px; margin:0 0 6px; }
+    .masthead .right{ font-size:8px; padding-bottom:2px; gap:2px; }
+
+    /* lede */
+    .lede{ padding:6px 0 10px; column-gap:32px; }
+    .lede p{ font-size:10.5px; line-height:1.35; max-width:60ch; }
+    .lede .meta{ font-size:8px; gap:3px 16px; letter-spacing:0.12em; }
+
+    /* sections */
+    .section{ padding:12px 0 0; break-inside:avoid; }
+    .section + .section{ padding-top:10px; }
+
+    /* plans */
+    .plans{ padding-top:14px; }
+    .plans-head{ padding-bottom:6px; }
+    .plans-head h2{ font-size:16px; }
+    .plans-head .meta{ font-size:7.5px; letter-spacing:0.16em; }
+    .plans-frame{ padding:10px 0 4px; }
+    .plans-cap{ padding-top:6px; font-size:7.5px; letter-spacing:0.16em; }
+    .sec-head{ padding-bottom:4px; }
+    .sec-head h2{ font-size:16px; }
+    .sec-head .meta{ font-size:7.5px; letter-spacing:0.16em; }
+    .sec-head .meta .dim{ margin-left:6px; }
+
+    /* table */
+    .tbl thead th{ font-size:7px; padding:4px 0 5px; letter-spacing:0.18em; }
+    .tbl tbody td{ font-size:10.5px; padding:3.5px 0; line-height:1.15; }
+    .tbl tbody tr:first-child td{ padding-top:2px; }
+    .code{ font-size:9px; letter-spacing:0.12em; width:64px; }
+    .dim{ width:96px; }
+    .area{ width:80px; }
+    .area .u{ font-size:8.5px; }
+    .occ{ width:60px; }
+    .occ::before{ font-size:9px; margin-right:5px; }
+    .rate .per, .rate .from{ font-size:7.5px; letter-spacing:0.14em; margin-left:5px; }
+    .rate .from{ margin-right:5px; margin-left:0; }
+
+    /* notes */
+    .notes{ margin-top:18px; padding-top:8px; column-gap:20px; row-gap:4px; }
+    .notes .col h4{ margin:0 0 4px; font-size:7.5px; letter-spacing:0.16em; }
+    .notes .col p{ font-size:9px; line-height:1.35; }
+
+    /* footer */
+    .foot{ margin-top:14px; padding-top:6px; font-size:7.5px; letter-spacing:0.16em; }
+  }
+</style>
+</head>
+<body style="">
+
+<div class="toolbar" aria-hidden="false">
+  <div class="left">The Old School · 29 Nassau Ave · Greenpoint, Brooklyn</div>
+  <div class="right">
+    <button class="btn" onclick="window.print()"><span class="dot"></span>Download PDF</button>
+    <a class="btn dark" href="#contact"><span class="dot"></span>Inquire</a>
+  </div>
+</div>
+
+<section class="sheet" id="sheet">
+
+  <!-- masthead -->
+  <header class="masthead">
+    <div>
+      <p class="kicker">29 Nassau Ave</p>
+      <h1>The Old School</h1>
+    </div>
+  </header>
+
+  <!-- lede -->
+  <div class="lede">
+    <p>Spaces available in a 1911 former school. Twelve rooms across three floors, one large auditorium, rooftop and kitchen available.</p>
+    <div class="meta">
+      <span class="k">Available</span><span class="v">9 Currently</span>
+      <span class="k">Term</span><span class="v">Open Lease</span>
+      <span class="k">Currency</span><span class="v">USD</span>
+      <span class="k">Effective</span><span class="v">Immediately</span>
+    </div>
+  </div>
+
+  <!-- plans -->
+  <div class="plans">
+    <div class="plans-head">
+      <h2>The Building</h2>
+      <div class="meta">Three Floors<span class="dim num">18,000 sf</span></div>
+    </div>
+    <div class="plans-frame">
+      <div class="crop">
+        <img src="floorplan.png" alt="Floor plans of 29 Nassau Ave — second floor, first floor, and lower level">
+      </div>
+    </div>
+  </div>
+
+  <!-- section 1: hall -->
+  <div class="section">
+    <div class="sec-head">
+      <h2>The Auditorium</h2>
+      <div class="meta">First Floor · Assembly<span class="dim num">1 Room · 2,928 sf</span></div>
+    </div>
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th class="code">Code</th>
+          <th class="dim">Dimension</th>
+          <th class="area">Area</th>
+          <th class="occ">Occ.</th>
+          <th class="right rate">Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="code num">H.01</td>
+          <td class="dim num">61′ × 48′</td>
+          <td class="area"><span class="num">2,928</span><span class="u">sf</span></td>
+          <td class="occ num">50</td>
+          <td class="right rate num"><span class="from">From</span>$18,750<span class="per">/ Night</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- section 2: studios -->
+  <div class="section">
+    <div class="sec-head">
+      <h2>The Studios</h2>
+      <div class="meta">Ground Floor<span class="dim num">2 Rooms · 1,196 sf</span></div>
+    </div>
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th class="code">Code</th>
+          <th class="dim">Dimension</th>
+          <th class="area">Area</th>
+          <th class="occ">Occ.</th>
+          <th class="right rate">Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="code num">S.01</td>
+          <td class="dim num">23′ × 26′</td>
+          <td class="area"><span class="num">598</span><span class="u">sf</span></td>
+          <td class="occ num">16</td>
+          <td class="right rate num">$14,950<span class="per">/ Month</span></td>
+        </tr>
+        <tr>
+          <td class="code num">S.02</td>
+          <td class="dim num">23′ × 26′</td>
+          <td class="area"><span class="num">598</span><span class="u">sf</span></td>
+          <td class="occ num">16</td>
+          <td class="right rate num">$14,950<span class="per">/ Month</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- section 3: classrooms -->
+  <div class="section">
+    <div class="sec-head">
+      <h2>The Classrooms</h2>
+      <div class="meta">Second Floor<span class="dim num">9 Rooms · 3,620 sf</span></div>
+    </div>
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th class="code">Code</th>
+          <th class="dim">Dimension</th>
+          <th class="area">Area</th>
+          <th class="occ">Occ.</th>
+          <th class="right rate">Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="code num">C.01</td><td class="dim num">23′ × 30′</td><td class="area"><span class="num">690</span><span class="u">sf</span></td><td class="occ num">16</td><td class="right rate num">$17,250<span class="per">/ Month</span></td></tr>
+        <tr><td class="code num">C.02</td><td class="dim num">31′ × 20′</td><td class="area"><span class="num">620</span><span class="u">sf</span></td><td class="occ num">16</td><td class="right rate num">$15,500<span class="per">/ Month</span></td></tr>
+        <tr><td class="code num">C.03</td><td class="dim num">31′ × 20′</td><td class="area"><span class="num">620</span><span class="u">sf</span></td><td class="occ num">16</td><td class="right rate num">$15,500<span class="per">/ Month</span></td></tr>
+        <tr><td class="code num">C.04</td><td class="dim num">31′ × 20′</td><td class="area"><span class="num">620</span><span class="u">sf</span></td><td class="occ num">16</td><td class="right rate num">$15,500<span class="per">/ Month</span></td></tr>
+        <tr><td class="code num">C.05</td><td class="dim num">15′ × 20′</td><td class="area"><span class="num">300</span><span class="u">sf</span></td><td class="occ num">8</td><td class="right rate num">$7,500<span class="per">/ Month</span></td></tr>
+        <tr><td class="code num">C.06</td><td class="dim num">19′ × 13′</td><td class="area"><span class="num">247</span><span class="u">sf</span></td><td class="occ num">4</td><td class="right rate num">$6,175<span class="per">/ Month</span></td></tr>
+        <tr><td class="code num">C.07</td><td class="dim num">10′ × 20′</td><td class="area"><span class="num">200</span><span class="u">sf</span></td><td class="occ num">5</td><td class="right rate num">$5,000<span class="per">/ Month</span></td></tr>
+        <tr><td class="code num">C.08</td><td class="dim num">19′ × 9′</td><td class="area"><span class="num">171</span><span class="u">sf</span></td><td class="occ num">4</td><td class="right rate num">$4,275<span class="per">/ Month</span></td></tr>
+        <tr><td class="code num">C.09</td><td class="dim num">19′ × 8′</td><td class="area"><span class="num">152</span><span class="u">sf</span></td><td class="occ num">4</td><td class="right rate num">$3,800<span class="per">/ Month</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- notes -->
+  <div class="notes">
+    <div class="col">
+      <h4>Tenancy</h4>
+      <p>Rates monthly. Open lease terms. The Hall is offered per night from a minimum rate; additional fees apply per arrangement.</p>
+    </div>
+    <div class="col">
+      <h4>History</h4>
+      <p>Constructed 1911 as parochial schoolhouse. Adapted for studios, offices, and assembly, 2026.</p>
+    </div>
+    <div class="col">
+      <h4>Tours</h4>
+      <p>By appointment. Inquiries through the address opposite. Walk-throughs offered weekdays.</p>
+    </div>
+    <div class="col">
+      <h4>Contact</h4>
+      <p>rentals@theoldschool.nyc<br>theoldschool.nyc</p>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="foot">
+    <div class="l">29 Nassau Ave</div>
+    <div class="c">Cowork / Offices / Studios / Events</div>
+    <div class="r">Greenpoint, NY</div>
+  </div>
+
+</section>
+
+<!-- contact CTA -->
+<section class="contact" id="contact">
+  <div>
+    <h3>Reserve a room or schedule a tour.</h3>
+    <p>By appointment · Greenpoint, Brooklyn</p>
+  </div>
+  <a class="btn" href="mailto:rentals@theoldschool.nyc?subject=The%20Old%20School%20%E2%80%94%20Inquiry"><span class="dot"></span>Inquire by Email</a>
+</section>
+
+
+
+</body></html>
