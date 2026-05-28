@@ -49,7 +49,7 @@
     }
 
     html {
-      font-size: 16px;
+      font-size: 17.5px;
     }
 
     html, body {
@@ -336,7 +336,7 @@
 
     .floor-label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 500;
       letter-spacing: 0.05em;
       transition: all 0.4s ease;
@@ -344,7 +344,7 @@
 
     .floor-sublabel {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 17px;
+      font-size: 19px;
       font-style: italic;
       transition: all 0.4s ease;
     }
@@ -572,18 +572,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.45rem 0;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .summary-row:last-of-type {
-      border-bottom: none;
+      padding: 0.4rem 0;
     }
 
     .summary-row.total {
-      padding-top: 0.75rem;
-      margin-top: 0.25rem;
-      border-top: 1px solid var(--border-medium);
+      padding-top: 0.6rem;
+      margin-top: 0.35rem;
     }
 
     .summary-label {
@@ -1064,6 +1058,148 @@
         justify-content: flex-start;
       }
     }
+
+    /* In-Between Spaces image gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    .gallery-thumb {
+      position: relative;
+      display: block;
+      padding: 0;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fafafa;
+      cursor: pointer;
+      aspect-ratio: 4 / 3;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .gallery-thumb:hover {
+      border-color: var(--border-medium);
+      transform: translateY(-1px);
+    }
+
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-thumb span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 0.7rem 0.55rem 0.4rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      text-align: left;
+    }
+
+    /* Lightbox */
+    .gallery-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .gallery-lightbox.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .gallery-lightbox-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+    }
+
+    .gallery-lb-figure {
+      position: relative;
+      margin: 0;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .gallery-lb-img {
+      max-width: 90vw;
+      max-height: 80vh;
+      object-fit: contain;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 12px 40px rgba(17, 17, 17, 0.18);
+      background: #fff;
+    }
+
+    .gallery-lb-caption {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .gallery-lb-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 2.5rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 2;
+      transition: color 0.2s ease;
+    }
+
+    .gallery-lb-close:hover { color: var(--text-bright); }
+
+    .gallery-lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--border-medium);
+      border-radius: 4px;
+      color: var(--text-primary);
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 0.6rem 0.95rem;
+      opacity: 0.85;
+      z-index: 2;
+      transition: opacity 0.2s ease, background 0.2s ease;
+    }
+
+    .gallery-lb-nav:hover { opacity: 1; background: #fff; color: var(--text-bright); }
+    .gallery-lb-prev { left: 1.5rem; }
+    .gallery-lb-next { right: 1.5rem; }
+
+    @media (max-width: 768px) {
+      .gallery-lb-nav { font-size: 1.5rem; padding: 0.45rem 0.7rem; }
+      .gallery-lb-prev { left: 0.6rem; }
+      .gallery-lb-next { right: 0.6rem; }
+      .gallery-lb-close { top: 0.8rem; right: 0.8rem; }
+    }
   </style>
 </head>
 <body>
@@ -1130,18 +1266,7 @@
 
         <div class="panel">
           <div class="panel-label">In-Between Spaces</div>
-          <div class="common-spaces-grid">
-            <div class="common-space-card" onclick="openRenderModal('common-stairwell')">
-              <div class="common-space-icon">&#8597;</div>
-              <div class="common-space-name">The Ascent</div>
-              <div class="common-space-label">Stairwell</div>
-            </div>
-            <div class="common-space-card" onclick="openRenderModal('common-foyer')">
-              <div class="common-space-icon">&#9673;</div>
-              <div class="common-space-name">The Threshold</div>
-              <div class="common-space-label">Hallway</div>
-            </div>
-          </div>
+          <div class="gallery-grid" id="galleryGrid"></div>
         </div>
       </div>
     </div>
@@ -1206,11 +1331,19 @@
       </div>
 
       <div class="render-variants"></div>
-
-      <div class="render-modal-actions">
-        <button class="render-btn render-btn-original">View Original Photo</button>
-      </div>
     </div>
+  </div>
+
+  <!-- In-Between Spaces image gallery lightbox -->
+  <div id="galleryLightbox" class="gallery-lightbox" aria-hidden="true">
+    <div class="gallery-lightbox-backdrop"></div>
+    <button class="gallery-lb-close" aria-label="Close gallery">&times;</button>
+    <button class="gallery-lb-nav gallery-lb-prev" aria-label="Previous image">&#8249;</button>
+    <button class="gallery-lb-nav gallery-lb-next" aria-label="Next image">&#8250;</button>
+    <figure class="gallery-lb-figure">
+      <img class="gallery-lb-img" src="" alt="">
+      <figcaption class="gallery-lb-caption"></figcaption>
+    </figure>
   </div>
 
   <script>
@@ -2035,7 +2168,6 @@
     const sliderRender = renderModal.querySelector('.render-slider-render');
     const sliderHandle = renderModal.querySelector('.render-slider-handle');
     const variantsContainer = renderModal.querySelector('.render-variants');
-    const btnOriginal = renderModal.querySelector('.render-btn-original');
 
     let currentRoomId = null;
     let currentVariantIndex = 0;
@@ -2093,11 +2225,6 @@
           variantsContainer.appendChild(thumb);
         });
       }
-
-      // Original button handler
-      btnOriginal.onclick = () => {
-        window.open(room.renders.original, '_blank');
-      };
 
       // Show modal
       renderModal.classList.add('active');
@@ -2195,6 +2322,63 @@
       if (e.key === 'Escape') closeRenderModal();
       if (e.key === 'ArrowLeft') navigateRoom(-1);
       if (e.key === 'ArrowRight') navigateRoom(1);
+    });
+
+    // ---- In-Between Spaces image gallery + lightbox ----
+    const inBetweenGallery = [
+      { src: 'images/renders/entrancestair_render.jpg',   caption: 'The Ascent · Stairwell' },
+      { src: 'images/renders/hallway_render.jpg',         caption: 'The Threshold · Hallway' },
+      { src: 'images/renders/entrancestair_original.jpg', caption: 'The Ascent · Today' },
+      { src: 'images/renders/hallway_original.jpg',       caption: 'The Threshold · Today' },
+    ];
+
+    const galleryGrid = document.getElementById('galleryGrid');
+    inBetweenGallery.forEach((item, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'gallery-thumb';
+      btn.type = 'button';
+      btn.innerHTML = `<img src="${item.src}" alt="${item.caption}" draggable="false" loading="lazy"><span>${item.caption}</span>`;
+      btn.addEventListener('click', () => openGallery(i));
+      galleryGrid.appendChild(btn);
+    });
+
+    const lightbox = document.getElementById('galleryLightbox');
+    const lbImg = lightbox.querySelector('.gallery-lb-img');
+    const lbCaption = lightbox.querySelector('.gallery-lb-caption');
+    let lbIndex = 0;
+
+    function renderLb() {
+      const item = inBetweenGallery[lbIndex];
+      lbImg.src = item.src;
+      lbImg.alt = item.caption;
+      lbCaption.textContent = item.caption;
+    }
+    function openGallery(i) {
+      lbIndex = i;
+      renderLb();
+      lightbox.classList.add('active');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeGallery() {
+      lightbox.classList.remove('active');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    function navGallery(dir) {
+      lbIndex = (lbIndex + dir + inBetweenGallery.length) % inBetweenGallery.length;
+      renderLb();
+    }
+
+    lightbox.querySelector('.gallery-lightbox-backdrop').addEventListener('click', closeGallery);
+    lightbox.querySelector('.gallery-lb-close').addEventListener('click', closeGallery);
+    lightbox.querySelector('.gallery-lb-prev').addEventListener('click', () => navGallery(-1));
+    lightbox.querySelector('.gallery-lb-next').addEventListener('click', () => navGallery(1));
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeGallery();
+      if (e.key === 'ArrowLeft') navGallery(-1);
+      if (e.key === 'ArrowRight') navGallery(1);
     });
 
   </script>
