@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Old School · Become a founding member</title>
+  <meta name="description" content="Founding membership at The Old School — a 20,000-square-foot residency, workspace, and events institution in Greenpoint. Sliding-scale dues from $300 to $1,000 a month. 50 founding members.">
+
+  <script>
+    /* ── Founding-membership Stripe Payment Links (recurring, monthly) ──
+       One hosted link per $100 step. The slider snaps to these; the matching
+       link opens on submit. The join code rides along as client_reference_id
+       and the email prefills checkout. No backend, no secret key here. */
+    window.MEMBERSHIP_LINKS = {
+      300:  "https://buy.stripe.com/3cIfZ9azJ2OTbI5dyt8EM01",
+      400:  "https://buy.stripe.com/5kQcMX8rB759aE10LH8EM02",
+      500:  "https://buy.stripe.com/aFa4grbDN6156nL7a58EM03",
+      600:  "https://buy.stripe.com/eVqfZ937h3SX7rP0LH8EM04",
+      700:  "https://buy.stripe.com/bJeaEP7nxdtxcM96618EM05",
+      800:  "https://buy.stripe.com/fZu14f37hahl27vbql8EM06",
+      900:  "https://buy.stripe.com/eVq14fazJ89ddQd51X8EM07",
+      1000: "https://buy.stripe.com/00w9AL23dahlaE18e98EM08"
+    };
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: oklch(0.81 0.004 95);
+      --card: oklch(0.96 0.006 95);
+      --card-2: oklch(0.93 0.006 95);
+      --ink: oklch(0.20 0.012 152);
+      --ink-soft: oklch(0.45 0.010 152);
+      --muted: oklch(0.58 0.008 152);
+      --line: oklch(0.20 0.012 152 / 0.10);
+      --line-strong: oklch(0.20 0.012 152 / 0.20);
+      --green: oklch(0.86 0.24 150);
+      --green-deep: oklch(0.66 0.20 150);
+      --red: oklch(0.62 0.21 25);
+
+      --radius: 20px;
+      --radius-sm: 12px;
+      --gap: 14px;
+      --max: 1480px;
+
+      --sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      padding: 16px;
+    }
+
+    .wrap { max-width: var(--max); margin: 0 auto; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gap);
+    }
+
+    .card {
+      background: var(--card);
+      color: var(--ink);
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .c-hero { grid-column: span 6; padding: 34px 36px 30px; min-height: 460px; }
+    .c-cam  { grid-column: span 6; padding: 0; }
+    .c-form { grid-column: 1 / -1; padding: 0; }
+
+    /* ---------- Hero ---------- */
+    .hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 4px;
+    }
+    .logo-mark {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: multiply;
+    }
+    .wordmark {
+      font-family: var(--mono);
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      word-spacing: -0.28em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .hero-body { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 40px 0 0; }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green-deep);
+      margin: 0 0 14px;
+    }
+    .hero-headline {
+      margin: 0;
+      font-weight: 800;
+      font-size: clamp(28px, 3.4vw, 48px);
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+    }
+    .hero-pitch {
+      margin: 24px 0 0;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      max-width: 52ch;
+    }
+    .hero-pitch b { color: var(--ink); font-weight: 600; }
+
+    /* ---------- Live cam ---------- */
+    .cam-feed {
+      flex: 1;
+      position: relative;
+      background: var(--ink);
+      aspect-ratio: 16 / 9;
+    }
+    .cam-feed video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.08) brightness(0.92);
+    }
+    .cam-fallback {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, oklch(0.30 0.012 152), oklch(0.16 0.012 152)),
+        repeating-linear-gradient(0deg, transparent 0 2px, oklch(0 0 0 / 0.18) 2px 3px);
+    }
+
+    /* ---------- The form ---------- */
+    .form-inner { padding: 40px clamp(28px, 5vw, 64px) 44px; }
+
+    .form-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding-bottom: 12px;
+    }
+    .form-head h2 {
+      margin: 0;
+      font-weight: 800;
+      font-size: clamp(26px, 3vw, 40px);
+      letter-spacing: -0.025em;
+      color: var(--ink);
+    }
+    .form-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--green-deep);
+    }
+    .form-status .dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 4px oklch(0.86 0.24 150 / 0.18);
+    }
+
+    .fieldset { border: 0; margin: 0; padding: 30px 0; }
+    .fieldset + .fieldset { border-top: 1px solid var(--line); }
+    .fieldset-bar {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .fieldset-bar .step {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .fieldset-bar h3 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 19px;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+    }
+    .field { display: flex; flex-direction: column; gap: 9px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    input[type="text"], input[type="email"] {
+      width: 100%;
+      font: inherit;
+      font-family: var(--sans);
+      font-size: 16px;
+      color: var(--ink);
+      background: transparent;
+      border: 0;
+      border-bottom: 1.5px solid var(--line-strong);
+      border-radius: 0;
+      padding: 10px 2px;
+      transition: border-color 0.16s var(--ease);
+    }
+    input::placeholder { color: oklch(0.70 0.008 152); }
+    input:focus { outline: none; border-color: var(--green-deep); }
+    input.invalid { border-color: var(--red); }
+
+    .joincode-input {
+      font-family: var(--mono) !important;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    .q-help { font-size: 14px; color: var(--ink-soft); margin: 0 0 14px; max-width: 70ch; }
+    .q-help a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+    .q-help a:hover { color: var(--green-deep); }
+
+    /* ---------- Sliding scale ---------- */
+    .scale {
+      margin-top: 6px;
+      padding: 30px 30px 26px;
+      background: var(--card-2);
+      border-radius: var(--radius-sm);
+    }
+    .scale-readout {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+    .scale-amount {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: clamp(40px, 7vw, 64px);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+    }
+    .scale-period {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--line-strong);
+      outline: none;
+      margin: 0;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 4px solid var(--card);
+      box-shadow: 0 0 0 1px var(--line-strong), 0 4px 10px oklch(0 0 0 / 0.18);
+      cursor: pointer;
+      transition: transform 0.12s var(--ease), background 0.16s var(--ease);
+    }
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.08); background: var(--green-deep); }
+    input[type="range"]:active::-webkit-slider-thumb { background: var(--green-deep); }
+    input[type="range"]::-moz-range-thumb {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 4px solid var(--card);
+      box-shadow: 0 0 0 1px var(--line-strong), 0 4px 10px oklch(0 0 0 / 0.18);
+      cursor: pointer;
+    }
+    input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px oklch(0.86 0.24 150 / 0.45); }
+
+    .scale-ticks {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 14px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    .scale-ticks span { cursor: pointer; transition: color 0.15s var(--ease); }
+    .scale-ticks span:hover { color: var(--ink); }
+    .scale-note { margin: 22px 0 0; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+    .scale-note b { color: var(--ink); font-weight: 600; }
+
+    .submit-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding-top: 36px;
+    }
+    .submit-msg {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+      margin: 0;
+      max-width: 46ch;
+    }
+    button[type="submit"] {
+      font: inherit;
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 18px 34px;
+      background: var(--ink);
+      color: var(--card);
+      border: 1.5px solid var(--ink);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.16s var(--ease), transform 0.16s var(--ease), color 0.16s var(--ease);
+    }
+    button[type="submit"]:hover {
+      transform: translateY(-1px);
+      background: var(--green);
+      color: var(--ink);
+      border-color: var(--green);
+    }
+    button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .secure-note {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ---------- Status banner ---------- */
+    .banner { display: none; padding: 72px clamp(28px, 5vw, 64px); }
+    .banner.show { display: block; }
+    .banner h2 {
+      font-weight: 800;
+      font-size: clamp(34px, 5vw, 60px);
+      line-height: 1;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin: 0 0 14px;
+    }
+    .banner h2 em { font-style: italic; color: var(--green-deep); font-weight: 700; }
+    .banner p { font-size: 17px; color: var(--ink-soft); max-width: 56ch; margin: 0 0 24px; }
+    .banner .aside-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono); font-weight: 700; font-size: 13px;
+      letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+      padding: 14px 26px; background: var(--ink); color: var(--card);
+      border: 1.5px solid var(--ink); border-radius: 12px;
+      transition: background 0.16s var(--ease), transform 0.16s var(--ease), color 0.16s var(--ease);
+    }
+    .banner .aside-cta:hover { transform: translateY(-1px); background: var(--green); color: var(--ink); border-color: var(--green); }
+
+    /* ---------- Footer ---------- */
+    .foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 14px 8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .foot a { color: var(--ink-soft); text-decoration: none; transition: color 0.18s var(--ease); }
+    .foot a:hover { color: var(--green); }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1080px) {
+      .c-hero { grid-column: span 12; min-height: 360px; }
+      .c-cam  { grid-column: span 12; }
+    }
+    @media (max-width: 680px) {
+      body { padding: 12px; }
+      .grid { gap: 12px; }
+      .c-hero { padding: 28px 24px; }
+      .form-inner { padding: 30px 22px 34px; }
+      .pair { grid-template-columns: 1fr; gap: 20px; }
+      .scale { padding: 24px 20px; }
+      .submit-row { flex-direction: column; align-items: stretch; }
+      .submit-row button { width: 100%; }
+      .foot { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <form id="join-form" class="grid" autocomplete="on" novalidate>
+
+      <!-- HERO -->
+      <section class="card c-hero">
+        <div class="hero-top">
+          <img class="logo-mark" src="../logo-mark.png" alt="" aria-hidden="true">
+          <span class="wordmark">The Old School</span>
+        </div>
+        <div class="hero-body">
+          <p class="hero-eyebrow">Founding Membership · 50 seats</p>
+          <h1 class="hero-headline">Take a seat at the table.</h1>
+          <p class="hero-pitch">
+            A 20,000-square-foot residency, workspace, and events institution in
+            Greenpoint, at the intersection of art and frontier technology.
+            Founding dues run on a <b>sliding scale from $300 to $1,000 a month</b> —
+            you choose what you can give, and we hold a founding seat for you.
+          </p>
+        </div>
+      </section>
+
+      <!-- LIVE CAM -->
+      <section class="card c-cam">
+        <div class="cam-feed">
+          <div class="cam-fallback" aria-hidden="true"></div>
+          <video autoplay muted loop playsinline preload="metadata"
+            src="https://pub-26ded2d3239743d8aaffae8fd29fa32a.r2.dev/theschool-1080p-no-audio.mp4"></video>
+        </div>
+      </section>
+
+      <!-- THE SIGNUP -->
+      <section class="card c-form" id="join">
+        <div class="form-inner" id="form-fields">
+
+          <div class="form-head">
+            <h2>Become a founding member</h2>
+            <span class="form-status"><span class="dot"></span>Founding seats open</span>
+          </div>
+
+          <fieldset class="fieldset">
+            <div class="fieldset-bar"><span class="step">01</span><h3>Your invitation</h3></div>
+            <p class="q-help">Founding membership is invite-only. Enter the join code from your invitation — your email carries through to secure checkout.</p>
+            <div class="pair">
+              <div class="field">
+                <label for="f-joincode">Join code</label>
+                <input id="f-joincode" class="joincode-input" type="text" name="join_code"
+                       placeholder="OLDSCHOOL" autocomplete="off" spellcheck="false" required>
+              </div>
+              <div class="field">
+                <label for="f-email">Email</label>
+                <input id="f-email" type="email" name="email" autocomplete="email" required>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <div class="fieldset-bar"><span class="step">02</span><h3>Choose your monthly dues</h3></div>
+            <p class="q-help">Same founding seat, same vote, same keys — wherever you land. You can change your dues or cancel anytime from your receipt.</p>
+            <div class="scale">
+              <div class="scale-readout">
+                <span class="scale-amount" id="amount-display">$500</span>
+                <span class="scale-period">/ month</span>
+              </div>
+              <input type="range" id="dues-slider" name="amount" min="300" max="1000" step="100" value="500"
+                     aria-label="Monthly dues in US dollars">
+              <div class="scale-ticks">
+                <span data-amount="300">$300 · Supporting</span>
+                <span data-amount="500">$500 · Standard</span>
+                <span data-amount="1000">$1,000 · Patron</span>
+              </div>
+              <p class="scale-note">
+                Founding members carry the room while we build it. <b>Patron-level dues</b> subsidize
+                <b>supporting-level</b> members so the table stays mixed — artists next to engineers next to operators.
+              </p>
+            </div>
+          </fieldset>
+
+          <div class="submit-row">
+            <button type="submit" id="submit-btn">Become a founding member →</button>
+            <span class="secure-note">🔒 Secure checkout via Stripe</span>
+          </div>
+          <p class="submit-msg" id="submit-msg" style="margin-top:18px"></p>
+
+        </div>
+
+        <!-- success (Stripe returns here with ?status=success) -->
+        <div class="banner" id="success-banner">
+          <h2>You're <em>a founding member.</em></h2>
+          <p>Welcome to The Old School. Your subscription is live — a receipt is on its way to your inbox, and we'll be in touch about keys, the founding roster, and your first session. The room is better with you in it.</p>
+          <a class="aside-cta" href="/">Back to The Old School <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <!-- honeypot -->
+      <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+        <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+    </form>
+
+    <footer class="foot">
+      <span>© The Old School · 2026</span>
+      <a href="mailto:rentals@theoldschool.nyc">rentals@theoldschool.nyc</a>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var LINKS = window.MEMBERSHIP_LINKS || {};
+
+      var form       = document.getElementById('join-form');
+      var formFields = document.getElementById('form-fields');
+      var slider     = document.getElementById('dues-slider');
+      var amountEl   = document.getElementById('amount-display');
+      var submitBtn  = document.getElementById('submit-btn');
+      var submitMsg  = document.getElementById('submit-msg');
+      var successBan = document.getElementById('success-banner');
+      var joincodeEl = document.getElementById('f-joincode');
+      var emailEl    = document.getElementById('f-email');
+
+      var fmt = new Intl.NumberFormat('en-US');
+
+      /* ── slider readout (snaps to $100 steps) ── */
+      function paint() { amountEl.textContent = '$' + fmt.format(parseInt(slider.value, 10)); }
+      slider.addEventListener('input', paint);
+      paint();
+
+      /* tick labels jump the slider */
+      document.querySelectorAll('.scale-ticks span').forEach(function (t) {
+        t.addEventListener('click', function () {
+          slider.value = t.getAttribute('data-amount');
+          paint();
+          slider.focus();
+        });
+      });
+
+      var params = new URLSearchParams(window.location.search);
+
+      /* ── prefill join code from an invite link (?code= / ?joincode= / ?join_code=) ── */
+      var urlCode = params.get('code') || params.get('joincode') || params.get('join_code');
+      if (urlCode) {
+        joincodeEl.value = urlCode.trim();
+        setTimeout(function () { emailEl.focus(); }, 0);
+      }
+
+      /* ── return from Stripe after a completed payment ── */
+      if (params.get('status') === 'success') {
+        formFields.style.display = 'none';
+        successBan.classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function fail(msg) {
+        submitMsg.textContent = msg;
+        submitMsg.style.color = 'oklch(0.55 0.20 25)';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Become a founding member →';
+      }
+
+      /* client_reference_id only allows [A-Za-z0-9_-], max 200 */
+      function refId(code) {
+        return code.replace(/[^A-Za-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 200);
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (form.website.value) return; /* honeypot */
+
+        submitMsg.textContent = '';
+        [joincodeEl, emailEl].forEach(function (el) { el.classList.remove('invalid'); });
+
+        var joinCode = joincodeEl.value.trim();
+        var email    = emailEl.value.trim();
+        var amount   = parseInt(slider.value, 10);
+
+        /* join code: accept anything, but it must be present */
+        if (!joinCode) { joincodeEl.classList.add('invalid'); joincodeEl.focus(); return fail('Enter your join code to continue.'); }
+        if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { emailEl.classList.add('invalid'); emailEl.focus(); return fail('Add a valid email.'); }
+
+        var base = LINKS[amount];
+        if (!base) { return fail('No checkout link configured for $' + amount + '. Pick another amount.'); }
+
+        var url = new URL(base);
+        var ref = refId(joinCode);
+        if (ref) url.searchParams.set('client_reference_id', ref);
+        url.searchParams.set('prefilled_email', email);
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Opening checkout…';
+        window.location.href = url.toString(); /* → Stripe hosted checkout */
+      });
+    })();
+  </script>
+</body>
+</html>
