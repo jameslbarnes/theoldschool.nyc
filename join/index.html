@@ -4,22 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Old School · Become a founding member</title>
-  <meta name="description" content="Founding membership at The Old School — a 20,000-square-foot residency, workspace, and events institution in Greenpoint. Sliding-scale dues from $300 to $1,000 a month. 50 founding members.">
+  <meta name="description" content="You have been invited to become a founding member of The Old School — a 20,000-square-foot residency, workspace, and events institution in Greenpoint. Founding dues: $300, $500, or $700 a month.">
 
   <script>
     /* ── Founding-membership Stripe Payment Links (recurring, monthly) ──
-       One hosted link per $100 step. The slider snaps to these; the matching
-       link opens on submit. The join code rides along as client_reference_id
-       and the email prefills checkout. No backend, no secret key here. */
+       One hosted link per tier. The selected tier opens the matching link.
+       The join code rides along as client_reference_id and the email
+       prefills checkout. No backend, no secret key here. */
     window.MEMBERSHIP_LINKS = {
-      300:  "https://buy.stripe.com/3cIfZ9azJ2OTbI5dyt8EM01",
-      400:  "https://buy.stripe.com/5kQcMX8rB759aE10LH8EM02",
-      500:  "https://buy.stripe.com/aFa4grbDN6156nL7a58EM03",
-      600:  "https://buy.stripe.com/eVqfZ937h3SX7rP0LH8EM04",
-      700:  "https://buy.stripe.com/bJeaEP7nxdtxcM96618EM05",
-      800:  "https://buy.stripe.com/fZu14f37hahl27vbql8EM06",
-      900:  "https://buy.stripe.com/eVq14fazJ89ddQd51X8EM07",
-      1000: "https://buy.stripe.com/00w9AL23dahlaE18e98EM08"
+      300: "https://buy.stripe.com/3cIfZ9azJ2OTbI5dyt8EM01",
+      500: "https://buy.stripe.com/aFa4grbDN6156nL7a58EM03",
+      700: "https://buy.stripe.com/bJeaEP7nxdtxcM96618EM05"
     };
   </script>
 
@@ -125,8 +120,8 @@
     .hero-headline {
       margin: 0;
       font-weight: 800;
-      font-size: clamp(28px, 3.4vw, 48px);
-      line-height: 1.0;
+      font-size: clamp(26px, 3vw, 44px);
+      line-height: 1.04;
       letter-spacing: -0.025em;
       color: var(--ink);
     }
@@ -261,84 +256,65 @@
     .q-help a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
     .q-help a:hover { color: var(--green-deep); }
 
-    /* ---------- Sliding scale ---------- */
-    .scale {
+    /* ---------- Tiers ---------- */
+    .tiers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
       margin-top: 6px;
-      padding: 30px 30px 26px;
-      background: var(--card-2);
-      border-radius: var(--radius-sm);
     }
-    .scale-readout {
+    .tier { position: relative; cursor: pointer; }
+    .tier input { position: absolute; opacity: 0; pointer-events: none; }
+    .tier-body {
+      height: 100%;
       display: flex;
-      align-items: baseline;
-      gap: 12px;
-      margin-bottom: 26px;
+      flex-direction: column;
+      gap: 10px;
+      padding: 24px 22px 26px;
+      background: var(--card-2);
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-sm);
+      transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
     }
-    .scale-amount {
+    .tier:hover .tier-body { border-color: var(--line-strong); }
+    .tier input:checked + .tier-body { border-color: var(--ink); background: var(--card); }
+    .tier input:focus-visible + .tier-body { box-shadow: 0 0 0 3px oklch(0.86 0.24 150 / 0.45); }
+    .tier-name {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--green-deep);
+    }
+    .tier-amount {
       font-family: var(--mono);
       font-weight: 700;
-      font-size: clamp(40px, 7vw, 64px);
+      font-size: 36px;
       letter-spacing: -0.03em;
       line-height: 1;
       color: var(--ink);
       font-variant-numeric: tabular-nums;
     }
-    .scale-period {
-      font-family: var(--mono);
+    .tier-amount small {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+    .tier-desc { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
+    .tier-desc b { color: var(--ink); font-weight: 600; }
+
+    .contribute-note {
+      margin: 22px 0 0;
+      padding: 20px 22px;
+      background: var(--card-2);
+      border-radius: var(--radius-sm);
       font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
+      line-height: 1.6;
+      color: var(--ink-soft);
     }
-
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--line-strong);
-      outline: none;
-      margin: 0;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 30px; height: 30px;
-      border-radius: 50%;
-      background: var(--ink);
-      border: 4px solid var(--card);
-      box-shadow: 0 0 0 1px var(--line-strong), 0 4px 10px oklch(0 0 0 / 0.18);
-      cursor: pointer;
-      transition: transform 0.12s var(--ease), background 0.16s var(--ease);
-    }
-    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.08); background: var(--green-deep); }
-    input[type="range"]:active::-webkit-slider-thumb { background: var(--green-deep); }
-    input[type="range"]::-moz-range-thumb {
-      width: 30px; height: 30px;
-      border-radius: 50%;
-      background: var(--ink);
-      border: 4px solid var(--card);
-      box-shadow: 0 0 0 1px var(--line-strong), 0 4px 10px oklch(0 0 0 / 0.18);
-      cursor: pointer;
-    }
-    input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px oklch(0.86 0.24 150 / 0.45); }
-
-    .scale-ticks {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 14px;
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-    }
-    .scale-ticks span { cursor: pointer; transition: color 0.15s var(--ease); }
-    .scale-ticks span:hover { color: var(--ink); }
-    .scale-note { margin: 22px 0 0; font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
-    .scale-note b { color: var(--ink); font-weight: 600; }
+    .contribute-note b { color: var(--ink); font-weight: 600; }
 
     .submit-row {
       display: flex;
@@ -434,7 +410,7 @@
       .c-hero { padding: 28px 24px; }
       .form-inner { padding: 30px 22px 34px; }
       .pair { grid-template-columns: 1fr; gap: 20px; }
-      .scale { padding: 24px 20px; }
+      .tiers { grid-template-columns: 1fr; }
       .submit-row { flex-direction: column; align-items: stretch; }
       .submit-row button { width: 100%; }
       .foot { flex-direction: column; align-items: flex-start; gap: 10px; }
@@ -456,12 +432,13 @@
         </div>
         <div class="hero-body">
           <p class="hero-eyebrow">Founding Membership · 50 seats</p>
-          <h1 class="hero-headline">Take a seat at the table.</h1>
+          <h1 class="hero-headline">You have been invited to become a founding member.</h1>
           <p class="hero-pitch">
-            A 20,000-square-foot residency, workspace, and events institution in
-            Greenpoint, at the intersection of art and frontier technology.
-            Founding dues run on a <b>sliding scale from $300 to $1,000 a month</b> —
-            you choose what you can give, and we hold a founding seat for you.
+            The Old School is a 20,000-square-foot residency, workspace, and events
+            institution in Greenpoint, at the intersection of art and frontier technology.
+            Founding dues run on a <b>sliding scale — $300, $500, or $700 a month</b>.
+            Whatever you choose, <b>every founding member is expected to contribute</b> more
+            than money: your time, your work, your skills.
           </p>
         </div>
       </section>
@@ -502,24 +479,39 @@
 
           <fieldset class="fieldset">
             <div class="fieldset-bar"><span class="step">02</span><h3>Choose your monthly dues</h3></div>
-            <p class="q-help">Same founding seat, same vote, same keys — wherever you land. You can change your dues or cancel anytime from your receipt.</p>
-            <div class="scale">
-              <div class="scale-readout">
-                <span class="scale-amount" id="amount-display">$500</span>
-                <span class="scale-period">/ month</span>
-              </div>
-              <input type="range" id="dues-slider" name="amount" min="300" max="1000" step="100" value="500"
-                     aria-label="Monthly dues in US dollars">
-              <div class="scale-ticks">
-                <span data-amount="300">$300 · Supporting</span>
-                <span data-amount="500">$500 · Standard</span>
-                <span data-amount="1000">$1,000 · Patron</span>
-              </div>
-              <p class="scale-note">
-                Founding members carry the room while we build it. <b>Patron-level dues</b> subsidize
-                <b>supporting-level</b> members so the table stays mixed — artists next to engineers next to operators.
-              </p>
+            <p class="q-help">Same founding seat, same vote, same keys — at every tier. You can change your dues or cancel anytime from your receipt.</p>
+            <div class="tiers" role="radiogroup" aria-label="Monthly dues tier">
+              <label class="tier">
+                <input type="radio" name="amount" value="300">
+                <span class="tier-body">
+                  <span class="tier-name">Supporting</span>
+                  <span class="tier-amount">$300<small>/mo</small></span>
+                  <span class="tier-desc">For those earlier in their means. Comes with a <b>higher expectation of sweat equity</b> — teaching, building, running events, and showing up for the room.</span>
+                </span>
+              </label>
+              <label class="tier">
+                <input type="radio" name="amount" value="500" checked>
+                <span class="tier-body">
+                  <span class="tier-name">Standard</span>
+                  <span class="tier-amount">$500<small>/mo</small></span>
+                  <span class="tier-desc">The baseline founding contribution. You still show up with your time and skills — dues are only part of membership.</span>
+                </span>
+              </label>
+              <label class="tier">
+                <input type="radio" name="amount" value="700">
+                <span class="tier-body">
+                  <span class="tier-name">Patron</span>
+                  <span class="tier-amount">$700<small>/mo</small></span>
+                  <span class="tier-desc">Carries more of the room financially and <b>subsidizes supporting members</b>, keeping the table mixed — artists next to engineers next to operators.</span>
+                </span>
+              </label>
             </div>
+            <p class="contribute-note">
+              <b>Everyone is expected to contribute.</b> Dues keep the lights on, but The Old School
+              runs on what founding members put in. Choosing <b>Supporting</b> means leaning harder
+              into sweat equity; choosing <b>Patron</b> means carrying more of the cost so the room
+              stays open to everyone. No tier is a free ride.
+            </p>
           </fieldset>
 
           <div class="submit-row">
@@ -533,7 +525,7 @@
         <!-- success (Stripe returns here with ?status=success) -->
         <div class="banner" id="success-banner">
           <h2>You're <em>a founding member.</em></h2>
-          <p>Welcome to The Old School. Your subscription is live — a receipt is on its way to your inbox, and we'll be in touch about keys, the founding roster, and your first session. The room is better with you in it.</p>
+          <p>Welcome to The Old School. Your subscription is live — a receipt is on its way to your inbox, and we'll be in touch about keys, the founding roster, and your first session. Now the real part: we'll see you in the room.</p>
           <a class="aside-cta" href="/">Back to The Old School <span aria-hidden="true">→</span></a>
         </div>
       </section>
@@ -556,29 +548,11 @@
 
       var form       = document.getElementById('join-form');
       var formFields = document.getElementById('form-fields');
-      var slider     = document.getElementById('dues-slider');
-      var amountEl   = document.getElementById('amount-display');
       var submitBtn  = document.getElementById('submit-btn');
       var submitMsg  = document.getElementById('submit-msg');
       var successBan = document.getElementById('success-banner');
       var joincodeEl = document.getElementById('f-joincode');
       var emailEl    = document.getElementById('f-email');
-
-      var fmt = new Intl.NumberFormat('en-US');
-
-      /* ── slider readout (snaps to $100 steps) ── */
-      function paint() { amountEl.textContent = '$' + fmt.format(parseInt(slider.value, 10)); }
-      slider.addEventListener('input', paint);
-      paint();
-
-      /* tick labels jump the slider */
-      document.querySelectorAll('.scale-ticks span').forEach(function (t) {
-        t.addEventListener('click', function () {
-          slider.value = t.getAttribute('data-amount');
-          paint();
-          slider.focus();
-        });
-      });
 
       var params = new URLSearchParams(window.location.search);
 
@@ -617,14 +591,15 @@
 
         var joinCode = joincodeEl.value.trim();
         var email    = emailEl.value.trim();
-        var amount   = parseInt(slider.value, 10);
+        var sel      = form.querySelector('input[name="amount"]:checked');
+        var amount   = sel ? parseInt(sel.value, 10) : null;
 
         /* join code: accept anything, but it must be present */
         if (!joinCode) { joincodeEl.classList.add('invalid'); joincodeEl.focus(); return fail('Enter your join code to continue.'); }
         if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { emailEl.classList.add('invalid'); emailEl.focus(); return fail('Add a valid email.'); }
 
-        var base = LINKS[amount];
-        if (!base) { return fail('No checkout link configured for $' + amount + '. Pick another amount.'); }
+        var base = amount && LINKS[amount];
+        if (!base) { return fail('Pick a membership tier to continue.'); }
 
         var url = new URL(base);
         var ref = refId(joinCode);
