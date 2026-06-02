@@ -256,6 +256,28 @@
     .q-help a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
     .q-help a:hover { color: var(--green-deep); }
 
+    /* ---------- What's included ---------- */
+    .includes { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 16px; }
+    .includes li {
+      position: relative;
+      padding-left: 26px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      max-width: 76ch;
+    }
+    .includes li::before {
+      content: "";
+      position: absolute;
+      left: 4px; top: 9px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 3px oklch(0.86 0.24 150 / 0.18);
+    }
+    .includes li b { color: var(--ink); font-weight: 600; }
+    .includes li .soft { color: var(--muted); font-style: italic; }
+
     /* ---------- Tiers ---------- */
     .tiers {
       display: grid;
@@ -460,6 +482,15 @@
             <h2>Become a founding member</h2>
             <span class="form-status"><span class="dot"></span>Founding seats open</span>
           </div>
+
+          <fieldset class="fieldset">
+            <div class="fieldset-bar"><h3>What founding membership includes</h3></div>
+            <ul class="includes">
+              <li><b>Access to the space.</b> Come and go to work, meet, and make. <span class="soft">For now that's 9am–9pm while we finish access control — longer and after-hours access is coming.</span></li>
+              <li><b>A hot desk.</b> Work from the open floor any day you're in — bring a laptop and post up.</li>
+              <li><b>The right to build here.</b> Run your own thing out of The Old School — a class, a workshop, a yoga practice, an event, a project. Founding members get first crack at programming the space, and where it makes money, <span class="soft">we'll figure out a fair split together as we go.</span></li>
+            </ul>
+          </fieldset>
 
           <fieldset class="fieldset">
             <div class="fieldset-bar"><span class="step">01</span><h3>Your invitation</h3></div>
