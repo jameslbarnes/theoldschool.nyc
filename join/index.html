@@ -358,20 +358,20 @@
 
     .scale-note {
       display: flex;
-      align-items: center;
-      gap: 9px;
+      align-items: flex-start;
+      gap: 11px;
       margin: 24px 0 0;
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-size: 14px;
+      line-height: 1.55;
       color: var(--ink-soft);
+      max-width: 64ch;
     }
+    .scale-note b { color: var(--ink); font-weight: 600; }
     .scale-note[hidden] { display: none; }
     .scale-note .dot {
       width: 7px; height: 7px; border-radius: 50%;
       background: var(--green); flex: none;
+      margin-top: 6px;
       box-shadow: 0 0 0 3px oklch(0.86 0.24 150 / 0.18);
     }
 
@@ -545,7 +545,7 @@
                 <span data-amount="500">$500 · Standard</span>
                 <span data-amount="700">$700 · Patron</span>
               </div>
-              <p class="scale-note" id="sweat-note" hidden><span class="dot"></span>More sweat equity expected at this level</p>
+              <p class="scale-note" id="sweat-note" hidden><span class="dot"></span><span>At <b>$300/mo</b>, you should be willing and ready to contribute significant sweat equity into bringing The Old School to life.</span></p>
             </div>
           </fieldset>
 
