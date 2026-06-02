@@ -278,75 +278,102 @@
     .includes li b { color: var(--ink); font-weight: 600; }
     .includes li .soft { color: var(--muted); font-style: italic; }
 
-    /* ---------- Tiers ---------- */
-    .tiers {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+    /* ---------- Sliding scale ---------- */
+    .scale {
       margin-top: 6px;
-    }
-    .tier { position: relative; cursor: pointer; }
-    .tier input { position: absolute; opacity: 0; pointer-events: none; }
-    .tier-body {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 24px 22px 26px;
+      padding: 30px 30px 26px;
       background: var(--card-2);
-      border: 1.5px solid transparent;
       border-radius: var(--radius-sm);
-      transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
     }
-    .tier:hover .tier-body { border-color: var(--line-strong); }
-    .tier input:checked + .tier-body { border-color: var(--ink); background: var(--card); }
-    .tier input:focus-visible + .tier-body { box-shadow: 0 0 0 3px oklch(0.86 0.24 150 / 0.45); }
-    .tier-name {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--green-deep);
+    .scale-readout {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 28px;
     }
-    .tier-amount {
+    .scale-amount {
       font-family: var(--mono);
       font-weight: 700;
-      font-size: 36px;
+      font-size: clamp(40px, 7vw, 64px);
       letter-spacing: -0.03em;
       line-height: 1;
       color: var(--ink);
       font-variant-numeric: tabular-nums;
     }
-    .tier-amount small {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-    }
-    .tier-note {
-      margin-top: auto;
-      padding-top: 14px;
+    .scale-period {
       font-family: var(--mono);
-      font-size: 10.5px;
+      font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
     }
-    .tier-desc { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
-    .tier-desc b { color: var(--ink); font-weight: 600; }
+    .scale-period .scale-tier { color: var(--green-deep); }
 
-    .contribute-note {
-      margin: 22px 0 0;
-      padding: 20px 22px;
-      background: var(--card-2);
-      border-radius: var(--radius-sm);
-      font-size: 14px;
-      line-height: 1.6;
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--line-strong);
+      outline: none;
+      margin: 0;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 4px solid var(--card-2);
+      box-shadow: 0 0 0 1px var(--line-strong), 0 4px 10px oklch(0 0 0 / 0.18);
+      cursor: pointer;
+      transition: transform 0.12s var(--ease), background 0.16s var(--ease);
+    }
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.08); background: var(--green-deep); }
+    input[type="range"]:active::-webkit-slider-thumb { background: var(--green-deep); }
+    input[type="range"]::-moz-range-thumb {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 4px solid var(--card-2);
+      box-shadow: 0 0 0 1px var(--line-strong), 0 4px 10px oklch(0 0 0 / 0.18);
+      cursor: pointer;
+    }
+    input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px oklch(0.86 0.24 150 / 0.45); }
+
+    .scale-ticks {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 14px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+    .scale-ticks span { cursor: pointer; transition: color 0.15s var(--ease); }
+    .scale-ticks span:hover { color: var(--ink); }
+
+    .scale-note {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 24px 0 0;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--ink-soft);
     }
-    .contribute-note b { color: var(--ink); font-weight: 600; }
+    .scale-note[hidden] { display: none; }
+    .scale-note .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green); flex: none;
+      box-shadow: 0 0 0 3px oklch(0.86 0.24 150 / 0.18);
+    }
 
     .submit-row {
       display: flex;
@@ -442,7 +469,6 @@
       .c-hero { padding: 28px 24px; }
       .form-inner { padding: 30px 22px 34px; }
       .pair { grid-template-columns: 1fr; gap: 20px; }
-      .tiers { grid-template-columns: 1fr; }
       .submit-row { flex-direction: column; align-items: stretch; }
       .submit-row button { width: 100%; }
       .foot { flex-direction: column; align-items: flex-start; gap: 10px; }
@@ -506,29 +532,20 @@
 
           <fieldset class="fieldset">
             <div class="fieldset-bar"><span class="step">02</span><h3>Choose your monthly dues</h3></div>
-            <div class="tiers" role="radiogroup" aria-label="Monthly dues tier">
-              <label class="tier">
-                <input type="radio" name="amount" value="300">
-                <span class="tier-body">
-                  <span class="tier-name">Supporting</span>
-                  <span class="tier-amount">$300<small>/mo</small></span>
-                  <span class="tier-note">More sweat equity expected</span>
-                </span>
-              </label>
-              <label class="tier">
-                <input type="radio" name="amount" value="500" checked>
-                <span class="tier-body">
-                  <span class="tier-name">Standard</span>
-                  <span class="tier-amount">$500<small>/mo</small></span>
-                </span>
-              </label>
-              <label class="tier">
-                <input type="radio" name="amount" value="700">
-                <span class="tier-body">
-                  <span class="tier-name">Patron</span>
-                  <span class="tier-amount">$700<small>/mo</small></span>
-                </span>
-              </label>
+            <p class="q-help">The Old School is a community project where all members are expected to contribute. While dues keep the lights on, we're all figuring out how to build a sustainable long-term future together, and welcome contributors who have great ideas and the will to bring them to life.</p>
+            <div class="scale">
+              <div class="scale-readout">
+                <span class="scale-amount" id="amount-display">$500</span>
+                <span class="scale-period">/ month · <span class="scale-tier" id="tier-name">Standard</span></span>
+              </div>
+              <input type="range" id="dues-slider" name="amount" min="300" max="700" step="200" value="500"
+                     aria-label="Monthly dues in US dollars">
+              <div class="scale-ticks">
+                <span data-amount="300">$300 · Supporting</span>
+                <span data-amount="500">$500 · Standard</span>
+                <span data-amount="700">$700 · Patron</span>
+              </div>
+              <p class="scale-note" id="sweat-note" hidden><span class="dot"></span>More sweat equity expected at this level</p>
             </div>
           </fieldset>
 
@@ -571,6 +588,32 @@
       var successBan = document.getElementById('success-banner');
       var joincodeEl = document.getElementById('f-joincode');
       var emailEl    = document.getElementById('f-email');
+      var slider     = document.getElementById('dues-slider');
+      var amountEl   = document.getElementById('amount-display');
+      var tierEl     = document.getElementById('tier-name');
+      var sweatNote  = document.getElementById('sweat-note');
+
+      var TIERS = { 300: 'Supporting', 500: 'Standard', 700: 'Patron' };
+      var fmt = new Intl.NumberFormat('en-US');
+
+      /* ── slider readout (three stops: 300 / 500 / 700) ── */
+      function paint() {
+        var v = parseInt(slider.value, 10);
+        amountEl.textContent = '$' + fmt.format(v);
+        tierEl.textContent = TIERS[v] || '';
+        sweatNote.hidden = (v !== 300);   /* labor note only at the $300 level */
+      }
+      slider.addEventListener('input', paint);
+      paint();
+
+      /* tick labels jump the slider */
+      document.querySelectorAll('.scale-ticks span').forEach(function (t) {
+        t.addEventListener('click', function () {
+          slider.value = t.getAttribute('data-amount');
+          paint();
+          slider.focus();
+        });
+      });
 
       var params = new URLSearchParams(window.location.search);
 
@@ -609,15 +652,14 @@
 
         var joinCode = joincodeEl.value.trim();
         var email    = emailEl.value.trim();
-        var sel      = form.querySelector('input[name="amount"]:checked');
-        var amount   = sel ? parseInt(sel.value, 10) : null;
+        var amount   = parseInt(slider.value, 10);
 
         /* join code: accept anything, but it must be present */
         if (!joinCode) { joincodeEl.classList.add('invalid'); joincodeEl.focus(); return fail('Enter your join code to continue.'); }
         if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { emailEl.classList.add('invalid'); emailEl.focus(); return fail('Add a valid email.'); }
 
-        var base = amount && LINKS[amount];
-        if (!base) { return fail('Pick a membership tier to continue.'); }
+        var base = LINKS[amount];
+        if (!base) { return fail('Pick a membership amount to continue.'); }
 
         var url = new URL(base);
         var ref = refId(joinCode);
