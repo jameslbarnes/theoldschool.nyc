@@ -429,7 +429,7 @@
 </head>
 <body>
   <div class="wrap">
-    <form id="school-form" class="grid" autocomplete="off" novalidate>
+    <form id="school-form" class="grid" autocomplete="off">
 
       <!-- HERO -->
       <section class="card c-hero">
@@ -478,12 +478,12 @@
                 <input id="f-email" type="email" name="email" required>
               </div>
               <div class="field">
-                <label for="f-phone">Phone <span class="opt-tag">(optional)</span></label>
-                <input id="f-phone" type="tel" name="phone" autocomplete="tel">
+                <label for="f-phone">Phone</label>
+                <input id="f-phone" type="tel" name="phone" autocomplete="tel" required>
               </div>
               <div class="field">
                 <label for="f-do">What do you do?</label>
-                <input id="f-do" type="text" name="what_you_do">
+                <input id="f-do" type="text" name="what_you_do" required>
               </div>
             </div>
           </fieldset>
@@ -492,7 +492,7 @@
             <div class="fieldset-bar"><h3>What kind of space are you looking for?</h3></div>
             <p class="q-help">This helps us understand whether founding membership, a dedicated desk, or a room is the right fit.</p>
             <div class="opts">
-              <label class="opt"><input type="radio" name="workspace_interest" value="Hot desk"><span>Hot desk</span></label>
+              <label class="opt"><input type="radio" name="workspace_interest" value="Hot desk" required><span>Hot desk</span></label>
               <label class="opt"><input type="radio" name="workspace_interest" value="Dedicated desk"><span>Dedicated desk</span></label>
               <label class="opt"><input type="radio" name="workspace_interest" value="Office/studio space"><span>Office / studio space</span></label>
             </div>
@@ -502,8 +502,7 @@
             <div class="fieldset-bar"><h3>What is your current monthly budget for coworking?</h3></div>
             <p class="q-help">This does not commit you to a price. It helps us understand what kind of membership would actually fit.</p>
             <div class="opts">
-              <label class="opt"><input type="radio" name="monthly_budget" value="Under $300/month"><span>Under $300/mo</span></label>
-              <label class="opt"><input type="radio" name="monthly_budget" value="$300-$500/month"><span>$300-$500/mo</span></label>
+              <label class="opt"><input type="radio" name="monthly_budget" value="$300-$500/month" required><span>$300-$500/mo</span></label>
               <label class="opt"><input type="radio" name="monthly_budget" value="$500-$750/month"><span>$500-$750/mo</span></label>
               <label class="opt"><input type="radio" name="monthly_budget" value="$750+/month"><span>$750+/mo</span></label>
             </div>
@@ -512,17 +511,12 @@
           <fieldset class="fieldset">
             <div class="fieldset-bar"><h3>Your ninja skill</h3></div>
             <p class="q-help">One thing you could contribute to the community beyond the dues. A workshop you could teach, a project you'd run, a network you'd open, a skill that doesn't go in a bio.</p>
-            <textarea name="ninja_skill" rows="4"></textarea>
+            <textarea name="ninja_skill" rows="4" required></textarea>
           </fieldset>
 
           <fieldset class="fieldset">
-            <div class="fieldset-bar"><h3>Info session</h3></div>
-            <p class="q-help">Can you make an in-person session on Thursday, May 28th at 6pm at The Old School?</p>
-            <div class="opts">
-              <label class="opt"><input type="radio" name="info_session" value="Yes, I'll be there"><span>Yes, I'll be there</span></label>
-              <label class="opt"><input type="radio" name="info_session" value="Maybe"><span>Maybe</span></label>
-              <label class="opt"><input type="radio" name="info_session" value="Can't make it"><span>Can't make it</span></label>
-            </div>
+            <div class="fieldset-bar"><h3>How did you hear about The Old School?</h3></div>
+            <textarea name="referral" rows="3" required></textarea>
           </fieldset>
 
           <div class="submit-row">
@@ -534,7 +528,7 @@
 
         <div id="success-card">
           <h2>You're <em>in the room.</em></h2>
-          <p>Thank you. We read every one of these. We'll be in touch at the email you left, and ahead of the May 28 session if you said yes.</p>
+          <p>Thank you. We read every one of these. We'll be in touch at the email you left.</p>
         </div>
       </section>
 
